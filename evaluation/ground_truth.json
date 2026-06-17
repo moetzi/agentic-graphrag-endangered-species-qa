@@ -1,0 +1,1571 @@
+{
+  "version": "1.0.0",
+  "source": "data/species.json",
+  "schema": {
+    "node_labels": [
+      "Species",
+      "Habitat",
+      "Threat",
+      "ConservationAction"
+    ],
+    "relationships": [
+      "LIVES_IN",
+      "THREATENED_BY",
+      "PROTECTED_BY",
+      "SHARES_HABITAT_WITH"
+    ]
+  },
+  "counts": {
+    "total": 30,
+    "single_hop": 18,
+    "multi_hop": 12
+  },
+  "items": [
+    {
+      "id": "sh-001",
+      "hop": "single",
+      "category": "species_status",
+      "difficulty": "easy",
+      "question": "What is the conservation status of the Sumatran orangutan?",
+      "answer_type": "string",
+      "gold_answer": "Critically Endangered",
+      "gold_entities": [
+        "Sumatran orangutan",
+        "Critically Endangered"
+      ],
+      "gold_contexts": [
+        "Sumatran orangutan has conservation status: Critically Endangered."
+      ],
+      "expected_tools": [
+        {
+          "name": "get_species_status",
+          "args": {
+            "species_name": "Sumatran orangutan"
+          },
+          "cypher": "MATCH (s:Species {name: $species_name}) RETURN s.status AS status"
+        }
+      ]
+    },
+    {
+      "id": "sh-002",
+      "hop": "single",
+      "category": "species_status",
+      "difficulty": "easy",
+      "question": "What is the conservation status of the Vaquita?",
+      "answer_type": "string",
+      "gold_answer": "Critically endangered",
+      "gold_entities": [
+        "Vaquita",
+        "Critically endangered"
+      ],
+      "gold_contexts": [
+        "Vaquita has conservation status: Critically endangered."
+      ],
+      "expected_tools": [
+        {
+          "name": "get_species_status",
+          "args": {
+            "species_name": "Vaquita"
+          },
+          "cypher": "MATCH (s:Species {name: $species_name}) RETURN s.status AS status"
+        }
+      ]
+    },
+    {
+      "id": "sh-003",
+      "hop": "single",
+      "category": "species_status",
+      "difficulty": "easy",
+      "question": "What is the conservation status of the Snow leopard?",
+      "answer_type": "string",
+      "gold_answer": "Vulnerable",
+      "gold_entities": [
+        "Snow leopard",
+        "Vulnerable"
+      ],
+      "gold_contexts": [
+        "Snow leopard has conservation status: Vulnerable."
+      ],
+      "expected_tools": [
+        {
+          "name": "get_species_status",
+          "args": {
+            "species_name": "Snow leopard"
+          },
+          "cypher": "MATCH (s:Species {name: $species_name}) RETURN s.status AS status"
+        }
+      ]
+    },
+    {
+      "id": "sh-004",
+      "hop": "single",
+      "category": "species_status",
+      "difficulty": "easy",
+      "question": "What is the conservation status of the Whale shark?",
+      "answer_type": "string",
+      "gold_answer": "Endangered",
+      "gold_entities": [
+        "Whale shark",
+        "Endangered"
+      ],
+      "gold_contexts": [
+        "Whale shark has conservation status: Endangered."
+      ],
+      "expected_tools": [
+        {
+          "name": "get_species_status",
+          "args": {
+            "species_name": "Whale shark"
+          },
+          "cypher": "MATCH (s:Species {name: $species_name}) RETURN s.status AS status"
+        }
+      ]
+    },
+    {
+      "id": "sh-005",
+      "hop": "single",
+      "category": "scientific_name",
+      "difficulty": "easy",
+      "question": "What is the scientific name of the Cheetah?",
+      "answer_type": "string",
+      "gold_answer": "Acinonyx jubatus",
+      "gold_entities": [
+        "Cheetah",
+        "Acinonyx jubatus"
+      ],
+      "gold_contexts": [
+        "Cheetah has scientific name: Acinonyx jubatus."
+      ],
+      "expected_tools": [
+        {
+          "name": "get_species_scientific_name",
+          "args": {
+            "species_name": "Cheetah"
+          },
+          "cypher": "MATCH (s:Species {name: $species_name}) RETURN s.scientific_name AS scientific_name"
+        }
+      ]
+    },
+    {
+      "id": "sh-006",
+      "hop": "single",
+      "category": "scientific_name",
+      "difficulty": "easy",
+      "question": "What is the scientific name of the Polar bear?",
+      "answer_type": "string",
+      "gold_answer": "Ursus maritimus",
+      "gold_entities": [
+        "Polar bear",
+        "Ursus maritimus"
+      ],
+      "gold_contexts": [
+        "Polar bear has scientific name: Ursus maritimus."
+      ],
+      "expected_tools": [
+        {
+          "name": "get_species_scientific_name",
+          "args": {
+            "species_name": "Polar bear"
+          },
+          "cypher": "MATCH (s:Species {name: $species_name}) RETURN s.scientific_name AS scientific_name"
+        }
+      ]
+    },
+    {
+      "id": "sh-007",
+      "hop": "single",
+      "category": "scientific_name",
+      "difficulty": "easy",
+      "question": "What is the scientific name of the Giant panda?",
+      "answer_type": "string",
+      "gold_answer": "Ailuropoda melanoleuca",
+      "gold_entities": [
+        "Giant panda",
+        "Ailuropoda melanoleuca"
+      ],
+      "gold_contexts": [
+        "Giant panda has scientific name: Ailuropoda melanoleuca."
+      ],
+      "expected_tools": [
+        {
+          "name": "get_species_scientific_name",
+          "args": {
+            "species_name": "Giant panda"
+          },
+          "cypher": "MATCH (s:Species {name: $species_name}) RETURN s.scientific_name AS scientific_name"
+        }
+      ]
+    },
+    {
+      "id": "sh-008",
+      "hop": "single",
+      "category": "habitats_of_species",
+      "difficulty": "easy",
+      "question": "Where does the Snow leopard live?",
+      "answer_type": "set",
+      "gold_answer": [
+        "Asia (12 countries: Afghanistan, Bhutan, China, India, Kazakhstan, Kyrgyzstan, Mongolia, Nepal, Pakistan, Russia, Tajikistan, Uzbekistan)",
+        "High mountains",
+        "Himalayas",
+        "Ukok Plateau"
+      ],
+      "gold_entities": [
+        "Snow leopard",
+        "Asia (12 countries: Afghanistan, Bhutan, China, India, Kazakhstan, Kyrgyzstan, Mongolia, Nepal, Pakistan, Russia, Tajikistan, Uzbekistan)",
+        "High mountains",
+        "Himalayas",
+        "Ukok Plateau"
+      ],
+      "gold_contexts": [
+        "Snow leopard lives in Asia (12 countries: Afghanistan, Bhutan, China, India, Kazakhstan, Kyrgyzstan, Mongolia, Nepal, Pakistan, Russia, Tajikistan, Uzbekistan).",
+        "Snow leopard lives in High mountains.",
+        "Snow leopard lives in Himalayas.",
+        "Snow leopard lives in Ukok Plateau."
+      ],
+      "expected_tools": [
+        {
+          "name": "get_habitats_of_species",
+          "args": {
+            "species_name": "Snow leopard"
+          },
+          "cypher": "MATCH (s:Species {name: $species_name})-[:LIVES_IN]->(h:Habitat) RETURN h.name AS habitat"
+        }
+      ]
+    },
+    {
+      "id": "sh-009",
+      "hop": "single",
+      "category": "habitats_of_species",
+      "difficulty": "easy",
+      "question": "Where does the Polar bear live?",
+      "answer_type": "set",
+      "gold_answer": [
+        "Adjacent coastal areas",
+        "Alaska",
+        "Arctic Ocean",
+        "Bering Sea",
+        "Chukchi Sea",
+        "Hudson Bay",
+        "Kane Basin",
+        "M'Clintok Channel",
+        "Northeast Canada",
+        "Northern Greenland (Last Ice Area)",
+        "Sea ice",
+        "Southern Beaufort Sea"
+      ],
+      "gold_entities": [
+        "Polar bear",
+        "Adjacent coastal areas",
+        "Alaska",
+        "Arctic Ocean",
+        "Bering Sea",
+        "Chukchi Sea",
+        "Hudson Bay",
+        "Kane Basin",
+        "M'Clintok Channel",
+        "Northeast Canada",
+        "Northern Greenland (Last Ice Area)",
+        "Sea ice",
+        "Southern Beaufort Sea"
+      ],
+      "gold_contexts": [
+        "Polar bear lives in Adjacent coastal areas.",
+        "Polar bear lives in Alaska.",
+        "Polar bear lives in Arctic Ocean.",
+        "Polar bear lives in Bering Sea.",
+        "Polar bear lives in Chukchi Sea.",
+        "Polar bear lives in Hudson Bay.",
+        "Polar bear lives in Kane Basin.",
+        "Polar bear lives in M'Clintok Channel.",
+        "Polar bear lives in Northeast Canada.",
+        "Polar bear lives in Northern Greenland (Last Ice Area).",
+        "Polar bear lives in Sea ice.",
+        "Polar bear lives in Southern Beaufort Sea."
+      ],
+      "expected_tools": [
+        {
+          "name": "get_habitats_of_species",
+          "args": {
+            "species_name": "Polar bear"
+          },
+          "cypher": "MATCH (s:Species {name: $species_name})-[:LIVES_IN]->(h:Habitat) RETURN h.name AS habitat"
+        }
+      ]
+    },
+    {
+      "id": "sh-010",
+      "hop": "single",
+      "category": "habitats_of_species",
+      "difficulty": "easy",
+      "question": "Where does the Monarch butterfly live?",
+      "answer_type": "set",
+      "gold_answer": [
+        "California",
+        "Canada",
+        "Forests",
+        "Great Plains",
+        "Mexico",
+        "Monarch Butterfly Reserve",
+        "Mountains",
+        "United States"
+      ],
+      "gold_entities": [
+        "Monarch butterfly",
+        "California",
+        "Canada",
+        "Forests",
+        "Great Plains",
+        "Mexico",
+        "Monarch Butterfly Reserve",
+        "Mountains",
+        "United States"
+      ],
+      "gold_contexts": [
+        "Monarch butterfly lives in California.",
+        "Monarch butterfly lives in Canada.",
+        "Monarch butterfly lives in Forests.",
+        "Monarch butterfly lives in Great Plains.",
+        "Monarch butterfly lives in Mexico.",
+        "Monarch butterfly lives in Monarch Butterfly Reserve.",
+        "Monarch butterfly lives in Mountains.",
+        "Monarch butterfly lives in United States."
+      ],
+      "expected_tools": [
+        {
+          "name": "get_habitats_of_species",
+          "args": {
+            "species_name": "Monarch butterfly"
+          },
+          "cypher": "MATCH (s:Species {name: $species_name})-[:LIVES_IN]->(h:Habitat) RETURN h.name AS habitat"
+        }
+      ]
+    },
+    {
+      "id": "sh-011",
+      "hop": "single",
+      "category": "threats_of_species",
+      "difficulty": "easy",
+      "question": "What threats does the Sumatran orangutan face?",
+      "answer_type": "set",
+      "gold_answer": [
+        "Agricultural development",
+        "Forest fires",
+        "Habitat loss",
+        "Hunting",
+        "Illegal logging",
+        "Oil palm plantations",
+        "Road construction"
+      ],
+      "gold_entities": [
+        "Sumatran orangutan",
+        "Agricultural development",
+        "Forest fires",
+        "Habitat loss",
+        "Hunting",
+        "Illegal logging",
+        "Oil palm plantations",
+        "Road construction"
+      ],
+      "gold_contexts": [
+        "Sumatran orangutan is threatened by Agricultural development.",
+        "Sumatran orangutan is threatened by Forest fires.",
+        "Sumatran orangutan is threatened by Habitat loss.",
+        "Sumatran orangutan is threatened by Hunting.",
+        "Sumatran orangutan is threatened by Illegal logging.",
+        "Sumatran orangutan is threatened by Oil palm plantations.",
+        "Sumatran orangutan is threatened by Road construction."
+      ],
+      "expected_tools": [
+        {
+          "name": "get_threats_of_species",
+          "args": {
+            "species_name": "Sumatran orangutan"
+          },
+          "cypher": "MATCH (s:Species {name: $species_name})-[:THREATENED_BY]->(t:Threat) RETURN t.name AS threat"
+        }
+      ]
+    },
+    {
+      "id": "sh-012",
+      "hop": "single",
+      "category": "threats_of_species",
+      "difficulty": "easy",
+      "question": "What threats does the Vaquita face?",
+      "answer_type": "set",
+      "gold_answer": [
+        "Entanglement in gillnets",
+        "Fishery bycatch",
+        "Ghost nets",
+        "Illegal fishing operations",
+        "Illegal trade in totoaba swim bladders"
+      ],
+      "gold_entities": [
+        "Vaquita",
+        "Entanglement in gillnets",
+        "Fishery bycatch",
+        "Ghost nets",
+        "Illegal fishing operations",
+        "Illegal trade in totoaba swim bladders"
+      ],
+      "gold_contexts": [
+        "Vaquita is threatened by Entanglement in gillnets.",
+        "Vaquita is threatened by Fishery bycatch.",
+        "Vaquita is threatened by Ghost nets.",
+        "Vaquita is threatened by Illegal fishing operations.",
+        "Vaquita is threatened by Illegal trade in totoaba swim bladders."
+      ],
+      "expected_tools": [
+        {
+          "name": "get_threats_of_species",
+          "args": {
+            "species_name": "Vaquita"
+          },
+          "cypher": "MATCH (s:Species {name: $species_name})-[:THREATENED_BY]->(t:Threat) RETURN t.name AS threat"
+        }
+      ]
+    },
+    {
+      "id": "sh-013",
+      "hop": "single",
+      "category": "threats_of_species",
+      "difficulty": "easy",
+      "question": "What threats does the Monarch butterfly face?",
+      "answer_type": "set",
+      "gold_answer": [
+        "Agricultural expansion",
+        "Climate change",
+        "Genetically modified (GMO) crops",
+        "Glyphosate and Roundup use",
+        "Habitat loss and fragmentation",
+        "Logging",
+        "Loss of milkweed plants",
+        "Neonicotinoid pesticides",
+        "Urban planning"
+      ],
+      "gold_entities": [
+        "Monarch butterfly",
+        "Agricultural expansion",
+        "Climate change",
+        "Genetically modified (GMO) crops",
+        "Glyphosate and Roundup use",
+        "Habitat loss and fragmentation",
+        "Logging",
+        "Loss of milkweed plants",
+        "Neonicotinoid pesticides",
+        "Urban planning"
+      ],
+      "gold_contexts": [
+        "Monarch butterfly is threatened by Agricultural expansion.",
+        "Monarch butterfly is threatened by Climate change.",
+        "Monarch butterfly is threatened by Genetically modified (GMO) crops.",
+        "Monarch butterfly is threatened by Glyphosate and Roundup use.",
+        "Monarch butterfly is threatened by Habitat loss and fragmentation.",
+        "Monarch butterfly is threatened by Logging.",
+        "Monarch butterfly is threatened by Loss of milkweed plants.",
+        "Monarch butterfly is threatened by Neonicotinoid pesticides.",
+        "Monarch butterfly is threatened by Urban planning."
+      ],
+      "expected_tools": [
+        {
+          "name": "get_threats_of_species",
+          "args": {
+            "species_name": "Monarch butterfly"
+          },
+          "cypher": "MATCH (s:Species {name: $species_name})-[:THREATENED_BY]->(t:Threat) RETURN t.name AS threat"
+        }
+      ]
+    },
+    {
+      "id": "sh-014",
+      "hop": "single",
+      "category": "conservation_actions_of_species",
+      "difficulty": "medium",
+      "question": "What conservation actions are protecting the Yellowfin tuna?",
+      "answer_type": "set",
+      "gold_answer": [
+        "Advocating for stricter plans to recover depleted tuna stocks",
+        "Combating pirate fishing",
+        "International Seafood Sustainability Foundation (ISSF) partnerships",
+        "Marine Stewardship Council (MSC) certification",
+        "Raising consumer awareness",
+        "Reducing bycatch"
+      ],
+      "gold_entities": [
+        "Yellowfin tuna",
+        "Advocating for stricter plans to recover depleted tuna stocks",
+        "Combating pirate fishing",
+        "International Seafood Sustainability Foundation (ISSF) partnerships",
+        "Marine Stewardship Council (MSC) certification",
+        "Raising consumer awareness",
+        "Reducing bycatch"
+      ],
+      "gold_contexts": [
+        "Yellowfin tuna is protected by: Advocating for stricter plans to recover depleted tuna stocks.",
+        "Yellowfin tuna is protected by: Combating pirate fishing.",
+        "Yellowfin tuna is protected by: International Seafood Sustainability Foundation (ISSF) partnerships.",
+        "Yellowfin tuna is protected by: Marine Stewardship Council (MSC) certification.",
+        "Yellowfin tuna is protected by: Raising consumer awareness.",
+        "Yellowfin tuna is protected by: Reducing bycatch."
+      ],
+      "expected_tools": [
+        {
+          "name": "get_conservation_actions_of_species",
+          "args": {
+            "species_name": "Yellowfin tuna"
+          },
+          "cypher": "MATCH (s:Species {name: $species_name})-[:PROTECTED_BY]->(a:ConservationAction) RETURN a.name AS action"
+        }
+      ]
+    },
+    {
+      "id": "sh-015",
+      "hop": "single",
+      "category": "conservation_actions_of_species",
+      "difficulty": "medium",
+      "question": "What conservation actions are protecting the Black-footed ferret?",
+      "answer_type": "set",
+      "gold_answer": [
+        "Captive breeding and reintroductions",
+        "Cloning",
+        "Collaborating with tribal communities and private landowners",
+        "Habitat protection",
+        "Mitigating sylvatic plague and participating in oral vaccine research",
+        "Relocating prairie dogs to increase ferret habitat"
+      ],
+      "gold_entities": [
+        "Black-footed ferret",
+        "Captive breeding and reintroductions",
+        "Cloning",
+        "Collaborating with tribal communities and private landowners",
+        "Habitat protection",
+        "Mitigating sylvatic plague and participating in oral vaccine research",
+        "Relocating prairie dogs to increase ferret habitat"
+      ],
+      "gold_contexts": [
+        "Black-footed ferret is protected by: Captive breeding and reintroductions.",
+        "Black-footed ferret is protected by: Cloning.",
+        "Black-footed ferret is protected by: Collaborating with tribal communities and private landowners.",
+        "Black-footed ferret is protected by: Habitat protection.",
+        "Black-footed ferret is protected by: Mitigating sylvatic plague and participating in oral vaccine research.",
+        "Black-footed ferret is protected by: Relocating prairie dogs to increase ferret habitat."
+      ],
+      "expected_tools": [
+        {
+          "name": "get_conservation_actions_of_species",
+          "args": {
+            "species_name": "Black-footed ferret"
+          },
+          "cypher": "MATCH (s:Species {name: $species_name})-[:PROTECTED_BY]->(a:ConservationAction) RETURN a.name AS action"
+        }
+      ]
+    },
+    {
+      "id": "sh-016",
+      "hop": "single",
+      "category": "find_by_threat",
+      "difficulty": "medium",
+      "question": "Which species are threatened by poaching?",
+      "answer_type": "set",
+      "gold_answer": [
+        "African forest elephant",
+        "African savanna elephant",
+        "Cheetah",
+        "Continental tiger",
+        "Indian elephant",
+        "Indus River dolphin",
+        "Javan rhino",
+        "Red panda",
+        "Snow leopard",
+        "Sumatran elephant",
+        "Sunda tiger",
+        "White rhino"
+      ],
+      "gold_entities": [
+        "African forest elephant",
+        "African savanna elephant",
+        "Cheetah",
+        "Continental tiger",
+        "Indian elephant",
+        "Indus River dolphin",
+        "Javan rhino",
+        "Red panda",
+        "Snow leopard",
+        "Sumatran elephant",
+        "Sunda tiger",
+        "White rhino",
+        "poaching"
+      ],
+      "gold_contexts": [
+        "African forest elephant is threatened by Poaching for ivory and bushmeat.",
+        "African savanna elephant is threatened by Poaching for ivory.",
+        "Cheetah is threatened by Poaching.",
+        "Continental tiger is threatened by Poaching for illegal wildlife trade.",
+        "Indian elephant is threatened by Poaching for ivory tusks.",
+        "Indus River dolphin is threatened by Poaching for meat and oil.",
+        "Javan rhino is threatened by Poaching for horn.",
+        "Red panda is threatened by Poaching for pelts.",
+        "Snow leopard is threatened by Poaching for illegal wildlife trade (fur, bones, body parts).",
+        "Sumatran elephant is threatened by Poaching for ivory.",
+        "Sunda tiger is threatened by Poaching for commercial trade.",
+        "White rhino is threatened by Poaching."
+      ],
+      "expected_tools": [
+        {
+          "name": "find_species_by_threat",
+          "args": {
+            "threat_keyword": "poaching"
+          },
+          "cypher": "MATCH (s:Species)-[:THREATENED_BY]->(t:Threat) WHERE toLower(t.name) CONTAINS toLower($threat_keyword) RETURN DISTINCT s.name AS species"
+        }
+      ]
+    },
+    {
+      "id": "sh-017",
+      "hop": "single",
+      "category": "find_by_habitat",
+      "difficulty": "medium",
+      "question": "Which species live in Arctic?",
+      "answer_type": "set",
+      "gold_answer": [
+        "Arctic fox",
+        "Arctic wolf",
+        "Beluga whale",
+        "Narwhal",
+        "Penguin",
+        "Polar bear"
+      ],
+      "gold_entities": [
+        "Arctic fox",
+        "Arctic wolf",
+        "Beluga whale",
+        "Narwhal",
+        "Penguin",
+        "Polar bear",
+        "Arctic"
+      ],
+      "gold_contexts": [
+        "Arctic fox lives in Arctic regions.",
+        "Arctic wolf lives in Arctic tundra.",
+        "Beluga whale lives in Arctic.",
+        "Narwhal lives in Arctic waters.",
+        "Penguin lives in Antarctica.",
+        "Polar bear lives in Arctic Ocean."
+      ],
+      "expected_tools": [
+        {
+          "name": "find_species_by_habitat",
+          "args": {
+            "habitat_keyword": "Arctic"
+          },
+          "cypher": "MATCH (s:Species)-[:LIVES_IN]->(h:Habitat) WHERE toLower(h.name) CONTAINS toLower($habitat_keyword) RETURN DISTINCT s.name AS species"
+        }
+      ]
+    },
+    {
+      "id": "sh-018",
+      "hop": "single",
+      "category": "find_by_status",
+      "difficulty": "medium",
+      "question": "Which species are listed as Critically Endangered?",
+      "answer_type": "set",
+      "gold_answer": [
+        "African forest elephant",
+        "Bornean orangutan",
+        "Hawksbill turtle",
+        "Javan rhino",
+        "Leatherback turtle",
+        "Pangolin",
+        "Saola",
+        "Sumatran elephant",
+        "Sumatran orangutan",
+        "Sunda tiger",
+        "Vaquita",
+        "Yangtze finless porpoise"
+      ],
+      "gold_entities": [
+        "African forest elephant",
+        "Bornean orangutan",
+        "Hawksbill turtle",
+        "Javan rhino",
+        "Leatherback turtle",
+        "Pangolin",
+        "Saola",
+        "Sumatran elephant",
+        "Sumatran orangutan",
+        "Sunda tiger",
+        "Vaquita",
+        "Yangtze finless porpoise",
+        "Critically Endangered"
+      ],
+      "gold_contexts": [
+        "African forest elephant has conservation status: Critically Endangered.",
+        "Bornean orangutan has conservation status: Critically Endangered.",
+        "Hawksbill turtle has conservation status: Critically endangered.",
+        "Javan rhino has conservation status: Critically endangered.",
+        "Leatherback turtle has conservation status: Vulnerable (many subpopulations Critically Endangered).",
+        "Pangolin has conservation status: Vulnerable to Critically Endangered (across 8+ species).",
+        "Saola has conservation status: Critically endangered (possibly functionally extinct).",
+        "Sumatran elephant has conservation status: Critically Endangered.",
+        "Sumatran orangutan has conservation status: Critically Endangered.",
+        "Sunda tiger has conservation status: Critically Endangered.",
+        "Vaquita has conservation status: Critically endangered.",
+        "Yangtze finless porpoise has conservation status: Critically Endangered."
+      ],
+      "expected_tools": [
+        {
+          "name": "find_species_by_status",
+          "args": {
+            "status": "Critically Endangered"
+          },
+          "cypher": "MATCH (s:Species) WHERE toLower(s.status) CONTAINS toLower($status) RETURN DISTINCT s.name AS species"
+        }
+      ]
+    },
+    {
+      "id": "mh-001",
+      "hop": "multi",
+      "category": "neighbours_of_species",
+      "difficulty": "medium",
+      "question": "Which species share a habitat with the Sumatran orangutan?",
+      "answer_type": "set",
+      "gold_answer": [
+        "Sumatran elephant"
+      ],
+      "gold_entities": [
+        "Sumatran orangutan",
+        "Sumatran elephant"
+      ],
+      "gold_contexts": [
+        "Sumatran orangutan shares habitat with Sumatran elephant."
+      ],
+      "expected_tools": [
+        {
+          "name": "get_neighbors_of_species",
+          "args": {
+            "species_name": "Sumatran orangutan"
+          },
+          "cypher": "MATCH (s:Species {name: $species_name})-[:SHARES_HABITAT_WITH]->(n:Species) RETURN DISTINCT n.name AS neighbor"
+        }
+      ]
+    },
+    {
+      "id": "mh-002",
+      "hop": "multi",
+      "category": "neighbours_of_species",
+      "difficulty": "medium",
+      "question": "Which species share a habitat with the Sunda tiger?",
+      "answer_type": "set",
+      "gold_answer": [
+        "Sumatran elephant",
+        "Sumatran orangutan"
+      ],
+      "gold_entities": [
+        "Sunda tiger",
+        "Sumatran elephant",
+        "Sumatran orangutan"
+      ],
+      "gold_contexts": [
+        "Sunda tiger shares habitat with Sumatran elephant.",
+        "Sunda tiger shares habitat with Sumatran orangutan."
+      ],
+      "expected_tools": [
+        {
+          "name": "get_neighbors_of_species",
+          "args": {
+            "species_name": "Sunda tiger"
+          },
+          "cypher": "MATCH (s:Species {name: $species_name})-[:SHARES_HABITAT_WITH]->(n:Species) RETURN DISTINCT n.name AS neighbor"
+        }
+      ]
+    },
+    {
+      "id": "mh-003",
+      "hop": "multi",
+      "category": "neighbours_of_species",
+      "difficulty": "medium",
+      "question": "Which species share a habitat with the Vaquita?",
+      "answer_type": "set",
+      "gold_answer": [
+        "Gray whale",
+        "Great white shark"
+      ],
+      "gold_entities": [
+        "Vaquita",
+        "Gray whale",
+        "Great white shark"
+      ],
+      "gold_contexts": [
+        "Vaquita shares habitat with Gray whale.",
+        "Vaquita shares habitat with Great white shark."
+      ],
+      "expected_tools": [
+        {
+          "name": "get_neighbors_of_species",
+          "args": {
+            "species_name": "Vaquita"
+          },
+          "cypher": "MATCH (s:Species {name: $species_name})-[:SHARES_HABITAT_WITH]->(n:Species) RETURN DISTINCT n.name AS neighbor"
+        }
+      ]
+    },
+    {
+      "id": "mh-004",
+      "hop": "multi",
+      "category": "neighbours_of_species",
+      "difficulty": "medium",
+      "question": "Which species share a habitat with the Bornean elephant?",
+      "answer_type": "set",
+      "gold_answer": [
+        "Bornean orangutan"
+      ],
+      "gold_entities": [
+        "Bornean elephant",
+        "Bornean orangutan"
+      ],
+      "gold_contexts": [
+        "Bornean elephant shares habitat with Bornean orangutan."
+      ],
+      "expected_tools": [
+        {
+          "name": "get_neighbors_of_species",
+          "args": {
+            "species_name": "Bornean elephant"
+          },
+          "cypher": "MATCH (s:Species {name: $species_name})-[:SHARES_HABITAT_WITH]->(n:Species) RETURN DISTINCT n.name AS neighbor"
+        }
+      ]
+    },
+    {
+      "id": "mh-005",
+      "hop": "multi",
+      "category": "common_threats",
+      "difficulty": "hard",
+      "question": "Which threats are faced by both the Sumatran orangutan and the Sumatran elephant?",
+      "answer_type": "set",
+      "gold_answer": [
+        "Oil palm plantations"
+      ],
+      "gold_entities": [
+        "Sumatran orangutan",
+        "Sumatran elephant",
+        "Oil palm plantations"
+      ],
+      "gold_contexts": [
+        "Sumatran orangutan is threatened by Oil palm plantations.",
+        "Sumatran elephant is threatened by Oil palm plantations."
+      ],
+      "expected_tools": [
+        {
+          "name": "get_common_threats",
+          "args": {
+            "species_a": "Sumatran orangutan",
+            "species_b": "Sumatran elephant"
+          },
+          "cypher": "MATCH (a:Species {name: $species_a})-[:THREATENED_BY]->(t:Threat) MATCH (b:Species {name: $species_b})-[:THREATENED_BY]->(t) RETURN DISTINCT t.name AS threat"
+        }
+      ],
+      "alternative_tools": [
+        [
+          {
+            "name": "get_threats_of_species",
+            "args": {
+              "species_name": "Sumatran orangutan"
+            },
+            "cypher": "MATCH (s:Species {name: $species_name})-[:THREATENED_BY]->(t:Threat) RETURN t.name AS threat"
+          },
+          {
+            "name": "get_threats_of_species",
+            "args": {
+              "species_name": "Sumatran elephant"
+            },
+            "cypher": "MATCH (s:Species {name: $species_name})-[:THREATENED_BY]->(t:Threat) RETURN t.name AS threat"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "mh-006",
+      "hop": "multi",
+      "category": "common_threats",
+      "difficulty": "hard",
+      "question": "Which threats are faced by both the Beluga whale and the Narwhal?",
+      "answer_type": "set",
+      "gold_answer": [
+        "Climate change",
+        "Ocean noise",
+        "Oil and gas development",
+        "Sea ice reduction",
+        "Shipping traffic",
+        "Underwater noise pollution"
+      ],
+      "gold_entities": [
+        "Beluga whale",
+        "Narwhal",
+        "Climate change",
+        "Ocean noise",
+        "Oil and gas development",
+        "Sea ice reduction",
+        "Shipping traffic",
+        "Underwater noise pollution"
+      ],
+      "gold_contexts": [
+        "Beluga whale is threatened by Climate change.",
+        "Beluga whale is threatened by Ocean noise.",
+        "Beluga whale is threatened by Oil and gas development.",
+        "Beluga whale is threatened by Sea ice reduction.",
+        "Beluga whale is threatened by Shipping traffic.",
+        "Beluga whale is threatened by Underwater noise pollution.",
+        "Narwhal is threatened by Climate change.",
+        "Narwhal is threatened by Ocean noise.",
+        "Narwhal is threatened by Oil and gas development.",
+        "Narwhal is threatened by Sea ice reduction.",
+        "Narwhal is threatened by Shipping traffic.",
+        "Narwhal is threatened by Underwater noise pollution."
+      ],
+      "expected_tools": [
+        {
+          "name": "get_common_threats",
+          "args": {
+            "species_a": "Beluga whale",
+            "species_b": "Narwhal"
+          },
+          "cypher": "MATCH (a:Species {name: $species_a})-[:THREATENED_BY]->(t:Threat) MATCH (b:Species {name: $species_b})-[:THREATENED_BY]->(t) RETURN DISTINCT t.name AS threat"
+        }
+      ],
+      "alternative_tools": [
+        [
+          {
+            "name": "get_threats_of_species",
+            "args": {
+              "species_name": "Beluga whale"
+            },
+            "cypher": "MATCH (s:Species {name: $species_name})-[:THREATENED_BY]->(t:Threat) RETURN t.name AS threat"
+          },
+          {
+            "name": "get_threats_of_species",
+            "args": {
+              "species_name": "Narwhal"
+            },
+            "cypher": "MATCH (s:Species {name: $species_name})-[:THREATENED_BY]->(t:Threat) RETURN t.name AS threat"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "mh-007",
+      "hop": "multi",
+      "category": "common_threats",
+      "difficulty": "hard",
+      "question": "Which threats are faced by both the Bornean orangutan and the Sumatran orangutan?",
+      "answer_type": "set",
+      "gold_answer": [
+        "Forest fires",
+        "Hunting",
+        "Illegal logging"
+      ],
+      "gold_entities": [
+        "Bornean orangutan",
+        "Sumatran orangutan",
+        "Forest fires",
+        "Hunting",
+        "Illegal logging"
+      ],
+      "gold_contexts": [
+        "Bornean orangutan is threatened by Forest fires.",
+        "Bornean orangutan is threatened by Hunting.",
+        "Bornean orangutan is threatened by Illegal logging.",
+        "Sumatran orangutan is threatened by Forest fires.",
+        "Sumatran orangutan is threatened by Hunting.",
+        "Sumatran orangutan is threatened by Illegal logging."
+      ],
+      "expected_tools": [
+        {
+          "name": "get_common_threats",
+          "args": {
+            "species_a": "Bornean orangutan",
+            "species_b": "Sumatran orangutan"
+          },
+          "cypher": "MATCH (a:Species {name: $species_a})-[:THREATENED_BY]->(t:Threat) MATCH (b:Species {name: $species_b})-[:THREATENED_BY]->(t) RETURN DISTINCT t.name AS threat"
+        }
+      ],
+      "alternative_tools": [
+        [
+          {
+            "name": "get_threats_of_species",
+            "args": {
+              "species_name": "Bornean orangutan"
+            },
+            "cypher": "MATCH (s:Species {name: $species_name})-[:THREATENED_BY]->(t:Threat) RETURN t.name AS threat"
+          },
+          {
+            "name": "get_threats_of_species",
+            "args": {
+              "species_name": "Sumatran orangutan"
+            },
+            "cypher": "MATCH (s:Species {name: $species_name})-[:THREATENED_BY]->(t:Threat) RETURN t.name AS threat"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "mh-008",
+      "hop": "multi",
+      "category": "neighbours_by_threat",
+      "difficulty": "hard",
+      "question": "Which species share a habitat with the Sunda tiger and are also threatened by habitat?",
+      "answer_type": "set",
+      "gold_answer": [
+        "Sumatran elephant",
+        "Sumatran orangutan"
+      ],
+      "gold_entities": [
+        "Sunda tiger",
+        "habitat",
+        "Sumatran elephant",
+        "Sumatran orangutan"
+      ],
+      "gold_contexts": [
+        "Sunda tiger shares habitat with Sumatran elephant.",
+        "Sunda tiger shares habitat with Sumatran orangutan.",
+        "Sumatran elephant is threatened by Deforestation and habitat loss.",
+        "Sumatran orangutan is threatened by Habitat loss."
+      ],
+      "expected_tools": [
+        {
+          "name": "get_neighbors_by_threat",
+          "args": {
+            "species_name": "Sunda tiger",
+            "threat_keyword": "habitat"
+          },
+          "cypher": "MATCH (s:Species {name: $species_name})-[:SHARES_HABITAT_WITH]->(n:Species) MATCH (n)-[:THREATENED_BY]->(t:Threat) WHERE toLower(t.name) CONTAINS toLower($threat_keyword) RETURN DISTINCT n.name AS neighbor"
+        }
+      ]
+    },
+    {
+      "id": "mh-009",
+      "hop": "multi",
+      "category": "threat_and_habitat",
+      "difficulty": "hard",
+      "question": "Which species are threatened by poaching and live in Africa?",
+      "answer_type": "set",
+      "gold_answer": [
+        "African forest elephant",
+        "African savanna elephant",
+        "Cheetah",
+        "White rhino"
+      ],
+      "gold_entities": [
+        "African forest elephant",
+        "African savanna elephant",
+        "Cheetah",
+        "White rhino",
+        "poaching",
+        "Africa"
+      ],
+      "gold_contexts": [
+        "African forest elephant is threatened by Poaching for ivory and bushmeat and lives in Central African Republic.",
+        "African savanna elephant is threatened by Poaching for ivory and lives in Sub-Saharan Africa.",
+        "African savanna elephant is threatened by Poaching for ivory and lives in South Africa.",
+        "Cheetah is threatened by Poaching and lives in Southern Africa.",
+        "Cheetah is threatened by Poaching and lives in Eastern Africa.",
+        "White rhino is threatened by Poaching and lives in South Africa."
+      ],
+      "expected_tools": [
+        {
+          "name": "find_species_by_threat_and_habitat",
+          "args": {
+            "threat_keyword": "poaching",
+            "habitat_keyword": "Africa"
+          },
+          "cypher": "MATCH (s:Species)-[:THREATENED_BY]->(t:Threat) MATCH (s)-[:LIVES_IN]->(h:Habitat) WHERE toLower(t.name) CONTAINS toLower($threat_keyword)   AND toLower(h.name) CONTAINS toLower($habitat_keyword) RETURN DISTINCT s.name AS species"
+        }
+      ]
+    },
+    {
+      "id": "mh-010",
+      "hop": "multi",
+      "category": "threat_and_status",
+      "difficulty": "hard",
+      "question": "Which Endangered species are threatened by climate change?",
+      "answer_type": "set",
+      "gold_answer": [
+        "Blue whale",
+        "Galápagos sea lion",
+        "Green turtle",
+        "Irrawaddy dolphin",
+        "Monarch butterfly",
+        "Penguin"
+      ],
+      "gold_entities": [
+        "Blue whale",
+        "Galápagos sea lion",
+        "Green turtle",
+        "Irrawaddy dolphin",
+        "Monarch butterfly",
+        "Penguin",
+        "climate change",
+        "Endangered"
+      ],
+      "gold_contexts": [
+        "Blue whale is Endangered and threatened by Climate change.",
+        "Galápagos sea lion is Endangered and threatened by Climate change and El Niño altering ocean currents and fish prey abundance.",
+        "Green turtle is Least concern (Globally as of 2025, though some regional populations remain Vulnerable/Endangered) and threatened by Climate change (altering sand temperatures affecting hatchling sex).",
+        "Irrawaddy dolphin is Endangered and threatened by Climate change.",
+        "Monarch butterfly is Endangered and threatened by Climate change.",
+        "Penguin is Varies by species (Emperor penguin now Endangered as of April 2026) and threatened by Climate change (loss of sea ice)."
+      ],
+      "expected_tools": [
+        {
+          "name": "find_species_by_threat_and_status",
+          "args": {
+            "threat_keyword": "climate change",
+            "status": "Endangered"
+          },
+          "cypher": "MATCH (s:Species)-[:THREATENED_BY]->(t:Threat) WHERE toLower(t.name) CONTAINS toLower($threat_keyword)   AND toLower(s.status) CONTAINS toLower($status) RETURN DISTINCT s.name AS species"
+        }
+      ]
+    },
+    {
+      "id": "mh-011",
+      "hop": "multi",
+      "category": "actions_for_threat",
+      "difficulty": "hard",
+      "question": "What conservation actions are taken to protect species threatened by poaching?",
+      "answer_type": "set",
+      "gold_answer": [
+        "Addressing illegal trade via the Coalition to End Wildlife Trafficking Online",
+        "Anti-poaching efforts",
+        "Assessing ivory markets and reducing consumer demand",
+        "Campaigning to phase out tiger farms",
+        "Coalition to End Wildlife Trafficking Online",
+        "Collaborating with TRAFFIC to reduce illicit ivory markets",
+        "Creating community employment and income through ecotourism",
+        "Creating employment in tourism and protected areas management",
+        "Deploying biogas technology for cooking stoves to reduce logging",
+        "Developing community-based tourism packages for alternative income",
+        "Effective public-private partnerships",
+        "Elephant Flying Squad to reduce human-elephant conflict",
+        "Enforcing strict anti-poaching legal fines ($1,000 and/or 10 years jail)",
+        "Enforcing zero tolerance for poaching via dedicated enforcement units",
+        "Equipping and supporting forest guards",
+        "Establishing Farmer Field Schools to reduce agricultural chemical runoff",
+        "Evaluating reintroduction feasibility in Sikkim",
+        "Fostering ecotourism and joint-venture lodges",
+        "Groundbreaking research using camera traps to map wildlife corridors",
+        "Implementing community-based livestock insurance plans",
+        "Influencing district and provincial land-use planning and zoning",
+        "Installing predator-proof livestock pens",
+        "Integrating eDNA sampling and traditional ecological knowledge",
+        "Intensive population monitoring",
+        "Kavango Zambezi Transfrontier Conservation Area (KAZA) transboundary movement",
+        "Managing a 100,000-acre forest concession company in Thirty Hills for restoration",
+        "Managing protected areas and migration corridors",
+        "Manufacturing yak dung briquettes as an alternative fuel source to prevent logging",
+        "Mitigating human-elephant conflict via patrols and community awareness",
+        "Mobile antipoaching activities",
+        "Monitoring and protection",
+        "Monitoring populations and habitat across India, Nepal, and Bhutan",
+        "Monitoring the Illegal Killing of Elephants (MIKE)",
+        "National population assessments (e.g., Bhutan, India, Mongolia)",
+        "PAPECALF regional law enforcement network",
+        "Partnering with e-commerce companies to end online wildlife trafficking",
+        "Population monitoring and tracking movements via radio tags",
+        "Promoting community-based fisheries as protein alternatives",
+        "Protecting critical corridors and transboundary habitats",
+        "Protecting elephant habitat",
+        "Publishing the Exotic Pet Suitability Guide",
+        "Raising community awareness with farmers, students, and monks",
+        "Reconnecting protected areas to secure migratory routes",
+        "Rescuing stranded dolphins from irrigation canals",
+        "Researching and monitoring via camera traps, spoor surveys, and satellite collars",
+        "Restoring critical habitats and biological corridors",
+        "Rhino horn DNA analysis (RhoDIS)",
+        "Sangha Tri-national Anti-poaching Brigade cross-border patrols",
+        "Securing continuous landscapes, conservation leases, and wildlife corridors",
+        "Securing healthy forests and declaring protected areas",
+        "Strengthening local and international law enforcement",
+        "TRAFFIC collaboration to stop black market channel distribution",
+        "TX2 global initiative to double wild tiger populations",
+        "Training fishermen to lead ecotourism and dolphin watch activities",
+        "Using chili bombs, beehive fences, and noisemakers to deter elephants",
+        "Wildlife patrol units conducting antipoaching patrols"
+      ],
+      "gold_entities": [
+        "Addressing illegal trade via the Coalition to End Wildlife Trafficking Online",
+        "Anti-poaching efforts",
+        "Assessing ivory markets and reducing consumer demand",
+        "Campaigning to phase out tiger farms",
+        "Coalition to End Wildlife Trafficking Online",
+        "Collaborating with TRAFFIC to reduce illicit ivory markets",
+        "Creating community employment and income through ecotourism",
+        "Creating employment in tourism and protected areas management",
+        "Deploying biogas technology for cooking stoves to reduce logging",
+        "Developing community-based tourism packages for alternative income",
+        "Effective public-private partnerships",
+        "Elephant Flying Squad to reduce human-elephant conflict",
+        "Enforcing strict anti-poaching legal fines ($1,000 and/or 10 years jail)",
+        "Enforcing zero tolerance for poaching via dedicated enforcement units",
+        "Equipping and supporting forest guards",
+        "Establishing Farmer Field Schools to reduce agricultural chemical runoff",
+        "Evaluating reintroduction feasibility in Sikkim",
+        "Fostering ecotourism and joint-venture lodges",
+        "Groundbreaking research using camera traps to map wildlife corridors",
+        "Implementing community-based livestock insurance plans",
+        "Influencing district and provincial land-use planning and zoning",
+        "Installing predator-proof livestock pens",
+        "Integrating eDNA sampling and traditional ecological knowledge",
+        "Intensive population monitoring",
+        "Kavango Zambezi Transfrontier Conservation Area (KAZA) transboundary movement",
+        "Managing a 100,000-acre forest concession company in Thirty Hills for restoration",
+        "Managing protected areas and migration corridors",
+        "Manufacturing yak dung briquettes as an alternative fuel source to prevent logging",
+        "Mitigating human-elephant conflict via patrols and community awareness",
+        "Mobile antipoaching activities",
+        "Monitoring and protection",
+        "Monitoring populations and habitat across India, Nepal, and Bhutan",
+        "Monitoring the Illegal Killing of Elephants (MIKE)",
+        "National population assessments (e.g., Bhutan, India, Mongolia)",
+        "PAPECALF regional law enforcement network",
+        "Partnering with e-commerce companies to end online wildlife trafficking",
+        "Population monitoring and tracking movements via radio tags",
+        "Promoting community-based fisheries as protein alternatives",
+        "Protecting critical corridors and transboundary habitats",
+        "Protecting elephant habitat",
+        "Publishing the Exotic Pet Suitability Guide",
+        "Raising community awareness with farmers, students, and monks",
+        "Reconnecting protected areas to secure migratory routes",
+        "Rescuing stranded dolphins from irrigation canals",
+        "Researching and monitoring via camera traps, spoor surveys, and satellite collars",
+        "Restoring critical habitats and biological corridors",
+        "Rhino horn DNA analysis (RhoDIS)",
+        "Sangha Tri-national Anti-poaching Brigade cross-border patrols",
+        "Securing continuous landscapes, conservation leases, and wildlife corridors",
+        "Securing healthy forests and declaring protected areas",
+        "Strengthening local and international law enforcement",
+        "TRAFFIC collaboration to stop black market channel distribution",
+        "TX2 global initiative to double wild tiger populations",
+        "Training fishermen to lead ecotourism and dolphin watch activities",
+        "Using chili bombs, beehive fences, and noisemakers to deter elephants",
+        "Wildlife patrol units conducting antipoaching patrols",
+        "poaching"
+      ],
+      "gold_contexts": [
+        "White rhino (threatened by poaching) is protected by: Strengthening local and international law enforcement.",
+        "White rhino (threatened by poaching) is protected by: Effective public-private partnerships.",
+        "White rhino (threatened by poaching) is protected by: Monitoring and protection.",
+        "White rhino (threatened by poaching) is protected by: Rhino horn DNA analysis (RhoDIS).",
+        "Cheetah (threatened by poaching) is protected by: Protecting critical corridors and transboundary habitats.",
+        "Cheetah (threatened by poaching) is protected by: Addressing illegal trade via the Coalition to End Wildlife Trafficking Online.",
+        "Cheetah (threatened by poaching) is protected by: Publishing the Exotic Pet Suitability Guide.",
+        "Cheetah (threatened by poaching) is protected by: Researching and monitoring via camera traps, spoor surveys, and satellite collars.",
+        "Indian elephant (threatened by poaching) is protected by: Protecting elephant habitat.",
+        "Indian elephant (threatened by poaching) is protected by: Restoring critical habitats and biological corridors.",
+        "Indian elephant (threatened by poaching) is protected by: Mitigating human-elephant conflict via patrols and community awareness.",
+        "Indian elephant (threatened by poaching) is protected by: Equipping and supporting forest guards.",
+        "Indian elephant (threatened by poaching) is protected by: Reconnecting protected areas to secure migratory routes.",
+        "Sumatran elephant (threatened by poaching) is protected by: Elephant Flying Squad to reduce human-elephant conflict.",
+        "Sumatran elephant (threatened by poaching) is protected by: Securing healthy forests and declaring protected areas.",
+        "Sumatran elephant (threatened by poaching) is protected by: Wildlife patrol units conducting antipoaching patrols.",
+        "Sumatran elephant (threatened by poaching) is protected by: Collaborating with TRAFFIC to reduce illicit ivory markets.",
+        "African forest elephant (threatened by poaching) is protected by: Creating employment in tourism and protected areas management.",
+        "African forest elephant (threatened by poaching) is protected by: Promoting community-based fisheries as protein alternatives.",
+        "African forest elephant (threatened by poaching) is protected by: Sangha Tri-national Anti-poaching Brigade cross-border patrols.",
+        "African forest elephant (threatened by poaching) is protected by: Monitoring the Illegal Killing of Elephants (MIKE).",
+        "African forest elephant (threatened by poaching) is protected by: PAPECALF regional law enforcement network.",
+        "African forest elephant (threatened by poaching) is protected by: Assessing ivory markets and reducing consumer demand.",
+        "African forest elephant (threatened by poaching) is protected by: Coalition to End Wildlife Trafficking Online.",
+        "African savanna elephant (threatened by poaching) is protected by: Managing protected areas and migration corridors.",
+        "African savanna elephant (threatened by poaching) is protected by: Kavango Zambezi Transfrontier Conservation Area (KAZA) transboundary movement.",
+        "African savanna elephant (threatened by poaching) is protected by: Fostering ecotourism and joint-venture lodges.",
+        "African savanna elephant (threatened by poaching) is protected by: Using chili bombs, beehive fences, and noisemakers to deter elephants.",
+        "African savanna elephant (threatened by poaching) is protected by: Anti-poaching efforts.",
+        "African savanna elephant (threatened by poaching) is protected by: Coalition to End Wildlife Trafficking Online.",
+        "Continental tiger (threatened by poaching) is protected by: Enforcing zero tolerance for poaching via dedicated enforcement units.",
+        "Continental tiger (threatened by poaching) is protected by: TRAFFIC collaboration to stop black market channel distribution.",
+        "Continental tiger (threatened by poaching) is protected by: Deploying biogas technology for cooking stoves to reduce logging.",
+        "Continental tiger (threatened by poaching) is protected by: Creating community employment and income through ecotourism.",
+        "Continental tiger (threatened by poaching) is protected by: Securing continuous landscapes, conservation leases, and wildlife corridors.",
+        "Sunda tiger (threatened by poaching) is protected by: TX2 global initiative to double wild tiger populations.",
+        "Sunda tiger (threatened by poaching) is protected by: Managing a 100,000-acre forest concession company in Thirty Hills for restoration.",
+        "Sunda tiger (threatened by poaching) is protected by: Influencing district and provincial land-use planning and zoning.",
+        "Sunda tiger (threatened by poaching) is protected by: Groundbreaking research using camera traps to map wildlife corridors.",
+        "Sunda tiger (threatened by poaching) is protected by: Campaigning to phase out tiger farms.",
+        "Indus River dolphin (threatened by poaching) is protected by: Establishing Farmer Field Schools to reduce agricultural chemical runoff.",
+        "Indus River dolphin (threatened by poaching) is protected by: Rescuing stranded dolphins from irrigation canals.",
+        "Indus River dolphin (threatened by poaching) is protected by: Training fishermen to lead ecotourism and dolphin watch activities.",
+        "Indus River dolphin (threatened by poaching) is protected by: Population monitoring and tracking movements via radio tags.",
+        "Javan rhino (threatened by poaching) is protected by: Intensive population monitoring.",
+        "Red panda (threatened by poaching) is protected by: Monitoring populations and habitat across India, Nepal, and Bhutan.",
+        "Red panda (threatened by poaching) is protected by: Evaluating reintroduction feasibility in Sikkim.",
+        "Red panda (threatened by poaching) is protected by: Raising community awareness with farmers, students, and monks.",
+        "Red panda (threatened by poaching) is protected by: Enforcing strict anti-poaching legal fines ($1,000 and/or 10 years jail).",
+        "Red panda (threatened by poaching) is protected by: Manufacturing yak dung briquettes as an alternative fuel source to prevent logging.",
+        "Red panda (threatened by poaching) is protected by: Developing community-based tourism packages for alternative income.",
+        "Snow leopard (threatened by poaching) is protected by: Mobile antipoaching activities.",
+        "Snow leopard (threatened by poaching) is protected by: Partnering with e-commerce companies to end online wildlife trafficking.",
+        "Snow leopard (threatened by poaching) is protected by: Installing predator-proof livestock pens.",
+        "Snow leopard (threatened by poaching) is protected by: Implementing community-based livestock insurance plans.",
+        "Snow leopard (threatened by poaching) is protected by: National population assessments (e.g., Bhutan, India, Mongolia).",
+        "Snow leopard (threatened by poaching) is protected by: Integrating eDNA sampling and traditional ecological knowledge."
+      ],
+      "expected_tools": [
+        {
+          "name": "get_conservation_actions_for_threat",
+          "args": {
+            "threat_keyword": "poaching"
+          },
+          "cypher": "MATCH (s:Species)-[:THREATENED_BY]->(t:Threat) MATCH (s)-[:PROTECTED_BY]->(a:ConservationAction) WHERE toLower(t.name) CONTAINS toLower($threat_keyword) RETURN DISTINCT a.name AS action"
+        }
+      ]
+    },
+    {
+      "id": "mh-012",
+      "hop": "multi",
+      "category": "actions_for_threat",
+      "difficulty": "hard",
+      "question": "What conservation actions are taken to protect species threatened by bycatch?",
+      "answer_type": "set",
+      "gold_answer": [
+        "Acoustic monitoring to estimate populations",
+        "Addressing the wildlife trade through TRAFFIC",
+        "Advocating for stricter plans to recover depleted tuna stocks",
+        "Bilateral conservation collaboration between the US and Mexico",
+        "Blue Corridors for Turtles tracking",
+        "Building a primary care nursery for injured individuals",
+        "CITES ban on international live trade",
+        "Capacity building for government and community rangers",
+        "Combating pirate fishing",
+        "Combating the illegal totoaba trade globally",
+        "Conducting environmental education and community awareness sessions",
+        "Conducting population and ecology surveys",
+        "Creating ecotourism opportunities and alternative livelihoods",
+        "Designing and installing dedicated floating bases for sea lions to rest",
+        "Developing a specialized breeding center for potential future captures",
+        "Developing alternative livelihoods and ecotourism",
+        "Developing and implementing vaquita-safe fishing technologies",
+        "Developing community fishery management zones",
+        "Developing management plans for protected areas",
+        "Eco-tourism management and regulation",
+        "Enforcing gillnet bans in the Upper Gulf of California",
+        "Equipping local turtle conservationists",
+        "Establishing Farmer Field Schools to reduce agricultural chemical runoff",
+        "Establishing Marine Protected Areas (MPAs)",
+        "Establishing marine protected areas (MPAs)",
+        "Establishing protected areas away from salmon farms and fisheries",
+        "Establishing saola reserves and improving community-based forest management",
+        "Fishery management to prevent competition for prey",
+        "Fostering ecotourism opportunities and alternative livelihoods",
+        "Habitat restoration and infrastructure improvements with corporate partners",
+        "Implementing specialized management plans (e.g., Galápagos San Cristóbal Plan)",
+        "Implementing the 2025–2030 San Cristóbal Island Management Plan",
+        "Intensive camera trapping networks",
+        "International Seafood Sustainability Foundation (ISSF) partnerships",
+        "Marine Stewardship Council (MSC) certification",
+        "Monitoring and patrolling nesting beaches",
+        "Monitoring and patrolling turtle nesting beaches",
+        "Monitoring and patrolling turtle nests",
+        "Patrolling nesting beaches and equipping local conservationists",
+        "Photo-identification computer database tracking",
+        "Policy advocacy through the International Whaling Commission (IWC)",
+        "Population monitoring and tracking movements via radio tags",
+        "Raising awareness on sea level rise and providing shade for nests",
+        "Raising consumer awareness",
+        "Reducing bycatch",
+        "Reducing turtle and egg consumption through community awareness",
+        "Regulating tourism",
+        "Rescuing stranded dolphins from irrigation canals",
+        "Research and monitoring of migration",
+        "Retrieving lost or abandoned ghost gillnets",
+        "Running the Smart Gear international competition to solve bycatch",
+        "Satellite remote sensing for population monitoring",
+        "Satellite tagging and tracking",
+        "Satellite tracking migration patterns",
+        "Satellite tracking movements to prevent fisheries interactions",
+        "Satellite tracking of migration and feeding routes",
+        "Scientific research using satellite tags and sonar",
+        "Smart Gear competition to innovate bycatch solutions",
+        "Smart Gear international competition to innovate bycatch solutions",
+        "Smart Gear international competition to solve bycatch",
+        "Studying climate change effects to build ecosystem resilience",
+        "Supporting alternative livelihoods (aquaculture, chicken raising, home-gardens)",
+        "TRAFFIC monitoring of illegal trade",
+        "Tourist and boat operator education on codes of conduct",
+        "Tracking turtle movements with satellite devices",
+        "Training fishermen to lead ecotourism and dolphin watch activities",
+        "Using innovative DNA-based tools like Shellbank",
+        "Using satellite telemetry devices to track migratory routes",
+        "Working with fisheries to adopt circle hooks and turtle excluder devices",
+        "Working with fisheries to adopt turtle-friendly circle hooks",
+        "Working with fisheries to switch to turtle-friendly circle hooks",
+        "eDNA stream surveys to detect surviving populations"
+      ],
+      "gold_entities": [
+        "Acoustic monitoring to estimate populations",
+        "Addressing the wildlife trade through TRAFFIC",
+        "Advocating for stricter plans to recover depleted tuna stocks",
+        "Bilateral conservation collaboration between the US and Mexico",
+        "Blue Corridors for Turtles tracking",
+        "Building a primary care nursery for injured individuals",
+        "CITES ban on international live trade",
+        "Capacity building for government and community rangers",
+        "Combating pirate fishing",
+        "Combating the illegal totoaba trade globally",
+        "Conducting environmental education and community awareness sessions",
+        "Conducting population and ecology surveys",
+        "Creating ecotourism opportunities and alternative livelihoods",
+        "Designing and installing dedicated floating bases for sea lions to rest",
+        "Developing a specialized breeding center for potential future captures",
+        "Developing alternative livelihoods and ecotourism",
+        "Developing and implementing vaquita-safe fishing technologies",
+        "Developing community fishery management zones",
+        "Developing management plans for protected areas",
+        "Eco-tourism management and regulation",
+        "Enforcing gillnet bans in the Upper Gulf of California",
+        "Equipping local turtle conservationists",
+        "Establishing Farmer Field Schools to reduce agricultural chemical runoff",
+        "Establishing Marine Protected Areas (MPAs)",
+        "Establishing marine protected areas (MPAs)",
+        "Establishing protected areas away from salmon farms and fisheries",
+        "Establishing saola reserves and improving community-based forest management",
+        "Fishery management to prevent competition for prey",
+        "Fostering ecotourism opportunities and alternative livelihoods",
+        "Habitat restoration and infrastructure improvements with corporate partners",
+        "Implementing specialized management plans (e.g., Galápagos San Cristóbal Plan)",
+        "Implementing the 2025–2030 San Cristóbal Island Management Plan",
+        "Intensive camera trapping networks",
+        "International Seafood Sustainability Foundation (ISSF) partnerships",
+        "Marine Stewardship Council (MSC) certification",
+        "Monitoring and patrolling nesting beaches",
+        "Monitoring and patrolling turtle nesting beaches",
+        "Monitoring and patrolling turtle nests",
+        "Patrolling nesting beaches and equipping local conservationists",
+        "Photo-identification computer database tracking",
+        "Policy advocacy through the International Whaling Commission (IWC)",
+        "Population monitoring and tracking movements via radio tags",
+        "Raising awareness on sea level rise and providing shade for nests",
+        "Raising consumer awareness",
+        "Reducing bycatch",
+        "Reducing turtle and egg consumption through community awareness",
+        "Regulating tourism",
+        "Rescuing stranded dolphins from irrigation canals",
+        "Research and monitoring of migration",
+        "Retrieving lost or abandoned ghost gillnets",
+        "Running the Smart Gear international competition to solve bycatch",
+        "Satellite remote sensing for population monitoring",
+        "Satellite tagging and tracking",
+        "Satellite tracking migration patterns",
+        "Satellite tracking movements to prevent fisheries interactions",
+        "Satellite tracking of migration and feeding routes",
+        "Scientific research using satellite tags and sonar",
+        "Smart Gear competition to innovate bycatch solutions",
+        "Smart Gear international competition to innovate bycatch solutions",
+        "Smart Gear international competition to solve bycatch",
+        "Studying climate change effects to build ecosystem resilience",
+        "Supporting alternative livelihoods (aquaculture, chicken raising, home-gardens)",
+        "TRAFFIC monitoring of illegal trade",
+        "Tourist and boat operator education on codes of conduct",
+        "Tracking turtle movements with satellite devices",
+        "Training fishermen to lead ecotourism and dolphin watch activities",
+        "Using innovative DNA-based tools like Shellbank",
+        "Using satellite telemetry devices to track migratory routes",
+        "Working with fisheries to adopt circle hooks and turtle excluder devices",
+        "Working with fisheries to adopt turtle-friendly circle hooks",
+        "Working with fisheries to switch to turtle-friendly circle hooks",
+        "eDNA stream surveys to detect surviving populations",
+        "bycatch"
+      ],
+      "gold_contexts": [
+        "Yellowfin tuna (threatened by bycatch) is protected by: Advocating for stricter plans to recover depleted tuna stocks.",
+        "Yellowfin tuna (threatened by bycatch) is protected by: Combating pirate fishing.",
+        "Yellowfin tuna (threatened by bycatch) is protected by: Reducing bycatch.",
+        "Yellowfin tuna (threatened by bycatch) is protected by: Marine Stewardship Council (MSC) certification.",
+        "Yellowfin tuna (threatened by bycatch) is protected by: International Seafood Sustainability Foundation (ISSF) partnerships.",
+        "Yellowfin tuna (threatened by bycatch) is protected by: Raising consumer awareness.",
+        "Whale shark (threatened by bycatch) is protected by: Scientific research using satellite tags and sonar.",
+        "Whale shark (threatened by bycatch) is protected by: Photo-identification computer database tracking.",
+        "Whale shark (threatened by bycatch) is protected by: Eco-tourism management and regulation.",
+        "Whale shark (threatened by bycatch) is protected by: Tourist and boat operator education on codes of conduct.",
+        "Blue whale (threatened by bycatch) is protected by: Satellite tracking of migration and feeding routes.",
+        "Blue whale (threatened by bycatch) is protected by: Establishing protected areas away from salmon farms and fisheries.",
+        "Blue whale (threatened by bycatch) is protected by: Policy advocacy through the International Whaling Commission (IWC).",
+        "Great white shark (threatened by bycatch) is protected by: Research and monitoring of migration.",
+        "Great white shark (threatened by bycatch) is protected by: Satellite tagging and tracking.",
+        "Great white shark (threatened by bycatch) is protected by: Developing management plans for protected areas.",
+        "Great white shark (threatened by bycatch) is protected by: Regulating tourism.",
+        "Indus River dolphin (threatened by bycatch) is protected by: Establishing Farmer Field Schools to reduce agricultural chemical runoff.",
+        "Indus River dolphin (threatened by bycatch) is protected by: Rescuing stranded dolphins from irrigation canals.",
+        "Indus River dolphin (threatened by bycatch) is protected by: Training fishermen to lead ecotourism and dolphin watch activities.",
+        "Indus River dolphin (threatened by bycatch) is protected by: Population monitoring and tracking movements via radio tags.",
+        "Irrawaddy dolphin (threatened by bycatch) is protected by: Conducting population and ecology surveys.",
+        "Irrawaddy dolphin (threatened by bycatch) is protected by: Habitat restoration and infrastructure improvements with corporate partners.",
+        "Irrawaddy dolphin (threatened by bycatch) is protected by: CITES ban on international live trade.",
+        "Irrawaddy dolphin (threatened by bycatch) is protected by: Developing community fishery management zones.",
+        "Irrawaddy dolphin (threatened by bycatch) is protected by: Supporting alternative livelihoods (aquaculture, chicken raising, home-gardens).",
+        "Vaquita (threatened by bycatch) is protected by: Developing and implementing vaquita-safe fishing technologies.",
+        "Vaquita (threatened by bycatch) is protected by: Enforcing gillnet bans in the Upper Gulf of California.",
+        "Vaquita (threatened by bycatch) is protected by: Retrieving lost or abandoned ghost gillnets.",
+        "Vaquita (threatened by bycatch) is protected by: Acoustic monitoring to estimate populations.",
+        "Vaquita (threatened by bycatch) is protected by: Bilateral conservation collaboration between the US and Mexico.",
+        "Vaquita (threatened by bycatch) is protected by: Combating the illegal totoaba trade globally.",
+        "Leatherback turtle (threatened by bycatch) is protected by: Working with fisheries to switch to turtle-friendly circle hooks.",
+        "Leatherback turtle (threatened by bycatch) is protected by: Smart Gear international competition to solve bycatch.",
+        "Leatherback turtle (threatened by bycatch) is protected by: Using satellite telemetry devices to track migratory routes.",
+        "Leatherback turtle (threatened by bycatch) is protected by: Establishing marine protected areas (MPAs).",
+        "Leatherback turtle (threatened by bycatch) is protected by: Patrolling nesting beaches and equipping local conservationists.",
+        "Leatherback turtle (threatened by bycatch) is protected by: Reducing turtle and egg consumption through community awareness.",
+        "Leatherback turtle (threatened by bycatch) is protected by: Creating ecotourism opportunities and alternative livelihoods.",
+        "Green turtle (threatened by bycatch) is protected by: Working with fisheries to adopt turtle-friendly circle hooks.",
+        "Green turtle (threatened by bycatch) is protected by: Smart Gear competition to innovate bycatch solutions.",
+        "Green turtle (threatened by bycatch) is protected by: Establishing Marine Protected Areas (MPAs).",
+        "Green turtle (threatened by bycatch) is protected by: Monitoring and patrolling turtle nesting beaches.",
+        "Green turtle (threatened by bycatch) is protected by: Using innovative DNA-based tools like Shellbank.",
+        "Green turtle (threatened by bycatch) is protected by: Blue Corridors for Turtles tracking.",
+        "Green turtle (threatened by bycatch) is protected by: Satellite tracking migration patterns.",
+        "Green turtle (threatened by bycatch) is protected by: TRAFFIC monitoring of illegal trade.",
+        "Olive ridley turtle (threatened by bycatch) is protected by: Establishing Marine Protected Areas (MPAs).",
+        "Olive ridley turtle (threatened by bycatch) is protected by: Monitoring and patrolling nesting beaches.",
+        "Olive ridley turtle (threatened by bycatch) is protected by: Raising awareness on sea level rise and providing shade for nests.",
+        "Olive ridley turtle (threatened by bycatch) is protected by: Working with fisheries to adopt turtle-friendly circle hooks.",
+        "Olive ridley turtle (threatened by bycatch) is protected by: Running the Smart Gear international competition to solve bycatch.",
+        "Olive ridley turtle (threatened by bycatch) is protected by: Satellite tracking movements to prevent fisheries interactions.",
+        "Olive ridley turtle (threatened by bycatch) is protected by: Studying climate change effects to build ecosystem resilience.",
+        "Loggerhead turtle (threatened by bycatch) is protected by: Working with fisheries to adopt turtle-friendly circle hooks.",
+        "Loggerhead turtle (threatened by bycatch) is protected by: Smart Gear international competition to innovate bycatch solutions.",
+        "Loggerhead turtle (threatened by bycatch) is protected by: Tracking turtle movements with satellite devices.",
+        "Loggerhead turtle (threatened by bycatch) is protected by: Establishing Marine Protected Areas (MPAs).",
+        "Loggerhead turtle (threatened by bycatch) is protected by: Monitoring and patrolling turtle nests.",
+        "Loggerhead turtle (threatened by bycatch) is protected by: Equipping local turtle conservationists.",
+        "Loggerhead turtle (threatened by bycatch) is protected by: Fostering ecotourism opportunities and alternative livelihoods.",
+        "Hawksbill turtle (threatened by bycatch) is protected by: Working with fisheries to adopt circle hooks and turtle excluder devices.",
+        "Hawksbill turtle (threatened by bycatch) is protected by: Smart Gear international competition to solve bycatch.",
+        "Hawksbill turtle (threatened by bycatch) is protected by: Satellite tracking movements to prevent fisheries interactions.",
+        "Hawksbill turtle (threatened by bycatch) is protected by: Establishing Marine Protected Areas (MPAs).",
+        "Hawksbill turtle (threatened by bycatch) is protected by: Monitoring and patrolling turtle nests.",
+        "Hawksbill turtle (threatened by bycatch) is protected by: Addressing the wildlife trade through TRAFFIC.",
+        "Hawksbill turtle (threatened by bycatch) is protected by: Developing alternative livelihoods and ecotourism.",
+        "Saola (threatened by bycatch) is protected by: Intensive camera trapping networks.",
+        "Saola (threatened by bycatch) is protected by: eDNA stream surveys to detect surviving populations.",
+        "Saola (threatened by bycatch) is protected by: Establishing saola reserves and improving community-based forest management.",
+        "Saola (threatened by bycatch) is protected by: Capacity building for government and community rangers.",
+        "Saola (threatened by bycatch) is protected by: Developing a specialized breeding center for potential future captures.",
+        "Galápagos sea lion (threatened by bycatch) is protected by: Designing and installing dedicated floating bases for sea lions to rest.",
+        "Galápagos sea lion (threatened by bycatch) is protected by: Building a primary care nursery for injured individuals.",
+        "Galápagos sea lion (threatened by bycatch) is protected by: Conducting environmental education and community awareness sessions.",
+        "Galápagos sea lion (threatened by bycatch) is protected by: Implementing the 2025–2030 San Cristóbal Island Management Plan.",
+        "Penguin (threatened by bycatch) is protected by: Establishing marine protected areas (MPAs).",
+        "Penguin (threatened by bycatch) is protected by: Implementing specialized management plans (e.g., Galápagos San Cristóbal Plan).",
+        "Penguin (threatened by bycatch) is protected by: Fishery management to prevent competition for prey.",
+        "Penguin (threatened by bycatch) is protected by: Satellite remote sensing for population monitoring."
+      ],
+      "expected_tools": [
+        {
+          "name": "get_conservation_actions_for_threat",
+          "args": {
+            "threat_keyword": "bycatch"
+          },
+          "cypher": "MATCH (s:Species)-[:THREATENED_BY]->(t:Threat) MATCH (s)-[:PROTECTED_BY]->(a:ConservationAction) WHERE toLower(t.name) CONTAINS toLower($threat_keyword) RETURN DISTINCT a.name AS action"
+        }
+      ]
+    }
+  ]
+}

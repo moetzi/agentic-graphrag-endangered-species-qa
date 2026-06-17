@@ -1,0 +1,1641 @@
+[
+    {
+        "species": "Sumatran orangutan",
+        "scientific_name": "Pongo abelii",
+        "status": "Critically Endangered",
+        "population": 13846,
+        "weight": "66–198 lbs.",
+        "height": "4–5 ft.",
+        "description": "Derived from the Malay words for 'person of the forest,' Sumatran orangutans are almost exclusively arboreal, living among the trees of tropical rainforests.",
+        "habitats": [
+            "Tropical and subtropical moist broadleaf forests",
+            "North Sumatra",
+            "Aceh",
+            "Bukit Tigapuluh National Park"
+        ],
+        "threats": [
+            "Hunting",
+            "Habitat loss",
+            "Forest fires",
+            "Oil palm plantations",
+            "Agricultural development",
+            "Road construction",
+            "Illegal logging"
+        ],
+        "shares_habitat_with": [
+            "Sumatran tiger",
+            "Sumatran elephant",
+            "Sumatran rhinoceros"
+        ],
+        "conservation_actions": [
+            "Fighting wildlife crime",
+            "Saving orangutan forests",
+            "Mitigating human-orangutan conflict"
+        ]
+    },
+    {
+        "species": "Bornean orangutan",
+        "scientific_name": "Pongo pygmaeus",
+        "status": "Critically Endangered",
+        "population": 104700,
+        "weight": "66–220 pounds",
+        "height": "3.3–4.6 feet",
+        "description": "The Bornean orangutan has a broader face, shorter beard, and is slightly darker in color compared to the Sumatran orangutan. It has three localized subspecies: Northwest, Northeast, and Central Bornean.",
+        "habitats": [
+            "Lowland rainforests",
+            "Tropical, swamp and mountain forests",
+            "Borneo",
+            "Sabah",
+            "Kalimantan"
+        ],
+        "threats": [
+            "Hunting",
+            "Illegal logging",
+            "Mining",
+            "Conversion of forests to agriculture",
+            "Forest fires",
+            "Conflict with humans",
+            "Illegal wildlife trade"
+        ],
+        "shares_habitat_with": [], 
+        "conservation_actions": [
+            "Restoring habitat integrity",
+            "Addressing illegal killing and trade",
+            "Reducing human-orangutan conflicts",
+            "Panda CLICK! program"
+        ]
+    },
+    {
+        "species": "Yellowfin tuna",
+        "scientific_name": "Thunnus albacares",
+        "status": "Near threatened",
+        "population": null, 
+        "weight": "up to 450 pounds",
+        "length": "up to 7 feet",
+        "description": "Torpedo-shaped with dark metallic blue backs, yellow sides, and a silver belly. They are highly migratory, breed year-round, and act as a top predator in the marine food chain.",
+        "habitats": [
+            "Pacific Ocean",
+            "Atlantic Ocean",
+            "Indian Ocean"
+        ],
+        "threats": [
+            "Overfishing",
+            "Bycatch"
+        ],
+        "shares_habitat_with": [
+            "Skipjack tuna",
+            "Bigeye tuna",
+            "Dolphins"
+        ],
+        "conservation_actions": [
+            "Advocating for stricter plans to recover depleted tuna stocks",
+            "Combating pirate fishing",
+            "Reducing bycatch",
+            "Marine Stewardship Council (MSC) certification",
+            "International Seafood Sustainability Foundation (ISSF) partnerships",
+            "Raising consumer awareness"
+        ]
+    },
+    {
+        "species": "Yangtze finless porpoise",
+        "scientific_name": "Neophocaena asiaeorientalis ssp. asiaeorientalis",
+        "status": "Critically Endangered",
+        "population": "1,000–1,800",
+        "weight": null,
+        "length": "6.2 feet",
+        "description": "Known for its mischievous smile and a level of intelligence comparable to a gorilla. It is the close cousin of the extinct Baiji dolphin and lives in the Yangtze River, the longest river in Asia.",
+        "habitats": [
+            "Yangtze River",
+            "Lakes",
+            "Rivers"
+        ],
+        "threats": [
+            "Overfishing",
+            "Food supply destruction",
+            "Pollution",
+            "Ship movement"
+        ],
+        "shares_habitat_with": [
+            "Baiji dolphin"
+        ],
+        "conservation_actions": [
+            "Reconnecting floodplain lakes to restore seasonal flows",
+            "Providing fishermen with alternative income generation methods",
+            "Stopping overfishing"
+        ]
+    },
+    {
+        "species": "White rhino",
+        "scientific_name": "Ceratotherium simum",
+        "status": "Near Threatened",
+        "population": "About 16,800",
+        "weight": "3,080–7,920 pounds",
+        "height": "5–6 feet",
+        "description": "The second-largest land mammal, also known as the square-lipped rhinoceros. Features a complex social structure and contains two genetically distinct subspecies: the near-extinct Northern white rhino and the recovering Southern white rhino.",
+        "habitats": [
+            "Grasslands",
+            "Long and short grass savanna areas",
+            "South Africa",
+            "Namibia",
+            "Zimbabwe",
+            "Kenya",
+            "Ol Pejeta Conservancy"
+        ],
+        "threats": [
+            "Poaching",
+            "Rhino horn trade",
+            "Habitat loss",
+            "Agriculture",
+            "Settlements",
+            "Uncontrolled hunting"
+        ],
+        "shares_habitat_with": [
+            "Black rhino"
+        ],
+        "conservation_actions": [
+            "Strengthening local and international law enforcement",
+            "Effective public-private partnerships",
+            "Monitoring and protection",
+            "Rhino horn DNA analysis (RhoDIS)"
+        ]
+    },
+    {
+        "species": "Whale shark",
+        "scientific_name": "Rhincodon typus",
+        "status": "Endangered",
+        "population": "458 individuals identified in the Philippines",
+        "weight": "About 11 tons",
+        "length": "Up to 60 feet",
+        "description": "The largest shark and largest fish alive today. They are gentle, transient plankton eaters with white spotted coloration unique to each individual like a human fingerprint.",
+        "habitats": [
+            "Oceans",
+            "Tropical oceans",
+            "Coral Triangle",
+            "Donsol Bay",
+            "Philippines",
+            "Mexico",
+            "Mafia Island",
+            "Coastal East Africa"
+        ],
+        "threats": [
+            "Unregulated fisheries",
+            "Meat, fins, and oil trade",
+            "Bycatch",
+            "Unregulated tourism",
+            "Boat propeller collisions"
+        ],
+        "shares_habitat_with": [],
+        "conservation_actions": [
+            "Scientific research using satellite tags and sonar",
+            "Photo-identification computer database tracking",
+            "Eco-tourism management and regulation",
+            "Tourist and boat operator education on codes of conduct"
+        ]
+    },
+    {
+        "species": "Beluga whale",
+        "scientific_name": "Delphinapterus leucas",
+        "status": "Near Threatened",
+        "population": "Over 150,000",
+        "weight": "1,500–3,500 lbs.",
+        "length": "8.5–22 ft.",
+        "description": "Extremely sociable polar mammals that live in pods. Known as the 'canary of the sea' due to their extensive vocalizations, they possess a flexible melon forehead capable of changing shape.",
+        "habitats": [
+            "Oceans",
+            "Arctic",
+            "Beaufort Sea",
+            "Alaska",
+            "River mouths"
+        ],
+        "threats": [
+            "Climate change",
+            "Sea ice reduction",
+            "Oil and gas development",
+            "Ocean noise",
+            "Underwater noise pollution",
+            "Shipping traffic",
+            "Vessel collisions",
+            "Predation by orcas"
+        ],
+        "shares_habitat_with": [
+            "Polar bear",
+            "Walrus",
+            "Orca"
+        ],
+        "conservation_actions": [
+            "Influencing Arctic shipping guidelines",
+            "Advocating for oil spill prevention and response",
+            "Community-based whale health monitoring",
+            "Strengthening the International Whaling Commission (IWC)",
+            "Raising awareness on underwater noise (Don’t Be a Buckethead initiative)"
+        ]
+    },
+    {
+        "species": "Blue whale",
+        "scientific_name": "Balaenoptera musculus",
+        "status": "Endangered",
+        "population": "10,000–25,000",
+        "weight": "About 200 tons",
+        "length": "80–100 ft.",
+        "description": "The largest animal on the planet with a heart the size of a car. They are the loudest animals on Earth, using low-frequency whistles reaching 188 decibels to communicate across hundreds of miles.",
+        "habitats": [
+            "Oceans",
+            "Gulf of Corcovado",
+            "Southern Chile"
+        ],
+        "threats": [
+            "Climate change",
+            "Habitat loss",
+            "Toxics and plastics",
+            "Ship strikes",
+            "Entanglement in fishing gear",
+            "Bycatch",
+            "Marine debris",
+            "Krill population depletion"
+        ],
+        "shares_habitat_with": [
+            "Humpback whale"
+        ],
+        "conservation_actions": [
+            "Satellite tracking of migration and feeding routes",
+            "Establishing protected areas away from salmon farms and fisheries",
+            "Policy advocacy through the International Whaling Commission (IWC)"
+        ]
+    },
+    {
+        "species": "Narwhal",
+        "scientific_name": "Monodon monoceros",
+        "status": "Least concern",
+        "population": "About 80,000",
+        "weight": "About 4,200 lbs.",
+        "length": "About 17 ft.",
+        "description": "Known as the unicorn of the sea due to a long, spiraled tusk that can grow up to 10 feet. The tusk is an enlarged tooth with up to 10 million nerve endings, providing sensory capabilities and playing a role in male dominance.",
+        "habitats": [
+            "Oceans",
+            "Arctic waters",
+            "Baffin Bay-Davis Strait",
+            "Canada",
+            "Greenland",
+            "Norway",
+            "Russia"
+        ],
+        "threats": [
+            "Climate change",
+            "Sea ice reduction",
+            "Oil and gas development",
+            "Ocean noise",
+            "Shipping traffic",
+            "Underwater noise pollution",
+            "Predation by killer whales"
+        ],
+        "shares_habitat_with": [
+            "Polar bear",
+            "Walrus",
+            "Killer whale"
+        ],
+        "conservation_actions": [
+            "Satellite tagging to study feeding and reproductive routines",
+            "Improving whale protection via the International Whaling Commission (IWC)",
+            "Protecting whales from ocean noise (Don’t Be a Buckethead initiative)"
+        ]
+    },
+    {
+        "species": "Gray whale",
+        "scientific_name": "Eschrichtius robustus",
+        "status": "Least concern",
+        "population": "About 150 (Western North Pacific population)",
+        "weight": null,
+        "length": "40–50 ft.",
+        "description": "A baleen whale with a hump and a ridge of sharp bumps instead of a dorsal fin. They are bottom-feeders that stay close to shore and are known for their incredibly long migrations of up to 12,000 miles round-trip. Affectionately called 'friendly ones' for approaching boats.",
+        "habitats": [
+            "Oceans",
+            "Shallow water",
+            "Sakhalin Island",
+            "Russia",
+            "South China Sea",
+            "Bering Sea",
+            "Chukchi Sea",
+            "Alaska",
+            "West coast of the US",
+            "Mexico",
+            "Gulf of California"
+        ],
+        "threats": [
+            "Oil and gas development",
+            "Entanglement in fishing gear",
+            "Collisions with ships",
+            "Underwater noise pollution",
+            "Seismic surveys"
+        ],
+        "shares_habitat_with": [
+            "Killer whale"
+        ],
+        "conservation_actions": [
+            "Restricting seismic surveys",
+            "Urging the establishment of a gray whale sanctuary",
+            "Campaigning against offshore oil drilling platforms",
+            "Monitoring population size and health via photo identification and tissue sampling",
+            "Recording underwater communication",
+            "Pushing for stricter environmental standards for offshore projects"
+        ]
+    },
+    {
+        "species": "Cheetah",
+        "scientific_name": "Acinonyx jubatus",
+        "status": "Vulnerable",
+        "population": "About 6,500",
+        "weight": "75–125 lbs.",
+        "height": "28-36 in",
+        "description": "The world's fastest land mammal, reaching speeds of 60-70 mph. Characterized by narrow shoulder blades, long limbs, a long balancing tail, and semi-retractable claws. Unlike other big cats, they cannot roar; they chirp and purr instead.",
+        "habitats": [
+            "Grasslands",
+            "Deserts",
+            "Mountains",
+            "Southern Africa",
+            "Eastern Africa",
+            "Iran",
+            "Kavango Zambezi Transfrontier Conservation Area (KAZA)",
+            "Southern Kenya–Northern Tanzania transboundary area"
+        ],
+        "threats": [
+            "Human-wildlife conflict",
+            "Retaliatory killings",
+            "Poaching",
+            "Illegal wildlife trade",
+            "Illegal pet trade",
+            "Social media demand",
+            "Habitat loss and fragmentation",
+            "Prey depletion",
+            "Climate change",
+            "Drought"
+        ],
+        "shares_habitat_with": [
+            "Lion",
+            "Leopard",
+            "African elephant"
+        ],
+        "conservation_actions": [
+            "Protecting critical corridors and transboundary habitats",
+            "Addressing illegal trade via the Coalition to End Wildlife Trafficking Online",
+            "Publishing the Exotic Pet Suitability Guide",
+            "Researching and monitoring via camera traps, spoor surveys, and satellite collars"
+        ]
+    },
+    {
+        "species": "Bornean elephant",
+        "scientific_name": "Elephas maximus borneensis",
+        "status": "Endangered",
+        "population": "Fewer than 1,500",
+        "height": "8.2–9.8 feet",
+        "description": "The smallest Asian elephant subspecies and the largest mammal on Borneo. Distinctly smaller than mainland elephants, they feature long tails that sometimes touch the ground, relatively large ears, and straight tusks.",
+        "habitats": [
+            "Forests",
+            "Sabah",
+            "Lower Kinabatangan Wildlife Sanctuary",
+            "Borneo",
+            "Malaysia"
+        ],
+        "threats": [
+            "Human-elephant conflict",
+            "Habitat loss and fragmentation",
+            "Commercial plantations",
+            "Oil palm plantations",
+            "Illegal snares",
+            "Logging",
+            "Expanding agriculture"
+        ],
+        "shares_habitat_with": [
+            "Bornean orangutan"
+        ],
+        "conservation_actions": [
+            "Satellite and radio collaring for tracking movement patterns",
+            "Creating reforested wildlife corridors through plantations",
+            "Sustainable forest management for timber production"
+        ]
+    },
+    {
+        "species": "Indian elephant",
+        "scientific_name": "Elephas maximus indicus",
+        "status": "Endangered",
+        "population": "20,000–25,000",
+        "weight": "5 tons",
+        "height": "6–11 ft.",
+        "length": "Up to 21 ft.",
+        "description": "A cultural icon in Asia that acts as a major seed disperser. They spend up to 19 hours a day feeding and produce about 220 pounds of dung daily while wandering areas up to 125 square miles.",
+        "habitats": [
+            "Subtropical broadleaf forest",
+            "Tropical broadleaf moist forest",
+            "Dry forest",
+            "Grassland",
+            "North Bank Landscape",
+            "Kaziranga Karbi-Anglong Landscape",
+            "Nilgiris Eastern Ghats Landscape",
+            "Terai Arc Landscape",
+            "Cat Tien National Park",
+            "India",
+            "Bhutan",
+            "Cambodia",
+            "Vietnam",
+            "Nepal"
+        ],
+        "threats": [
+            "Habitat loss and fragmentation",
+            "Illegal encroachment",
+            "Forest clearing",
+            "Human-elephant conflict",
+            "Retaliatory killings",
+            "Illegal wildlife trade",
+            "Poaching for ivory tusks"
+        ],
+        "shares_habitat_with": [
+            "Tiger"
+        ],
+        "conservation_actions": [
+            "Protecting elephant habitat",
+            "Restoring critical habitats and biological corridors",
+            "Mitigating human-elephant conflict via patrols and community awareness",
+            "Equipping and supporting forest guards",
+            "Reconnecting protected areas to secure migratory routes"
+        ]
+    },
+    {
+        "species": "Sri Lankan elephant",
+        "scientific_name": "Elephas maximus maximus",
+        "status": "Endangered",
+        "population": "2,500–4,000",
+        "weight": "4,400–12,000 lbs.",
+        "height": "8–10 ft.",
+        "description": "The largest and darkest of the Asian elephant subspecies, featuring distinct patches of depigmentation on its ears, face, trunk, and belly. Led by a matriarch, herds contain complex nursing and juvenile care units.",
+        "habitats": [
+            "Tropical and subtropical moist broadleaf forests",
+            "Sri Lanka"
+        ],
+        "threats": [
+            "Human-elephant conflict",
+            "Habitat loss",
+            "Forest clearing",
+            "Expanding agriculture"
+        ],
+        "shares_habitat_with": [],
+        "conservation_actions": [
+            "Protected under Sri Lankan law"
+        ]
+    },
+    {
+        "species": "Sumatran elephant",
+        "scientific_name": "Elephas maximus sumatranus",
+        "status": "Critically Endangered",
+        "population": "2,400–2,800",
+        "weight": "Approximately 5 tons",
+        "height": "5–9 feet at the shoulder",
+        "length": "Up to 20 feet",
+        "description": "Feeds on a variety of plants and deposits seeds to maintain healthy forest ecosystems. Half of its population has been lost in one generation due to extreme deforestation.",
+        "habitats": [
+            "Broadleaf moist tropical forests",
+            "Sumatra",
+            "Riau Province",
+            "Lampung Province",
+            "Tesso Nilo National Park"
+        ],
+        "threats": [
+            "Deforestation and habitat loss",
+            "Human-elephant conflict",
+            "Pulp and paper industries",
+            "Oil palm plantations",
+            "Poaching for ivory"
+        ],
+        "shares_habitat_with": [
+            "Sumatran rhino",
+            "Tiger",
+            "Sumatran orangutan"
+        ],
+        "conservation_actions": [
+            "Elephant Flying Squad to reduce human-elephant conflict",
+            "Securing healthy forests and declaring protected areas",
+            "Wildlife patrol units conducting antipoaching patrols",
+            "Collaborating with TRAFFIC to reduce illicit ivory markets"
+        ]
+    },
+    {
+        "species": "African forest elephant",
+        "scientific_name": "Loxodonta cyclotis",
+        "status": "Critically Endangered",
+        "population": "Estimated 95,000 (with major population declines)",
+        "weight": "2–5 tons",
+        "height": "8–10 ft.",
+        "description": "Smaller and more elusive than the savanna elephant, with oval-shaped ears and straighter, downward-pointing tusks. Known as the 'mega-gardener of the forest' due to their crucial role in germinating and dispersing the seeds of large rainforest trees.",
+        "habitats": [
+            "Dense tropical forests",
+            "Rainforests",
+            "Congo Basin",
+            "Gabon",
+            "Republic of Congo",
+            "Cameroon",
+            "Central African Republic",
+            "Côte d'Ivoire",
+            "Liberia",
+            "Ghana"
+        ],
+        "threats": [
+            "Habitat loss and fragmentation",
+            "Poaching for ivory and bushmeat",
+            "Commercial logging",
+            "Biofuel plantations",
+            "Extractive industries",
+            "Human-elephant conflict",
+            "Transnational organized crime networks"
+        ],
+        "shares_habitat_with": [],
+        "conservation_actions": [
+            "Creating employment in tourism and protected areas management",
+            "Promoting community-based fisheries as protein alternatives",
+            "Sangha Tri-national Anti-poaching Brigade cross-border patrols",
+            "Monitoring the Illegal Killing of Elephants (MIKE)",
+            "PAPECALF regional law enforcement network",
+            "Assessing ivory markets and reducing consumer demand",
+            "Coalition to End Wildlife Trafficking Online"
+        ]
+    },
+    {
+        "species": "African savanna elephant",
+        "scientific_name": "Loxodonta africana africana",
+        "status": "Endangered",
+        "population": "About 400,000",
+        "weight": "4–7 tons",
+        "height": "10–13 ft.",
+        "description": "The largest terrestrial animal on Earth, distinguished by very large ears that radiate heat. They form clans led by a female matriarch and contribute to savanna maintenance by reducing tree densities.",
+        "habitats": [
+            "Open and wooded savannas",
+            "Deserts",
+            "Sub-Saharan Africa",
+            "Botswana",
+            "Zimbabwe",
+            "Tanzania",
+            "Kenya",
+            "Namibia",
+            "Zambia",
+            "South Africa"
+        ],
+        "threats": [
+            "Illegal wildlife trade",
+            "Poaching for ivory",
+            "Transnational organized crime networks",
+            "Human-elephant conflict"
+        ],
+        "shares_habitat_with": [],
+        "conservation_actions": [
+            "Managing protected areas and migration corridors",
+            "Kavango Zambezi Transfrontier Conservation Area (KAZA) transboundary movement",
+            "Fostering ecotourism and joint-venture lodges",
+            "Using chili bombs, beehive fences, and noisemakers to deter elephants",
+            "Anti-poaching efforts",
+            "Coalition to End Wildlife Trafficking Online"
+        ]
+    },
+    {
+        "species": "North American beaver",
+        "scientific_name": "Castor canadensis",
+        "status": "Least concern",
+        "population": "10 million–15 million",
+        "weight": "Up to 70 lbs.",
+        "length": "Up to 4 ft.",
+        "description": "One of the largest rodents in the world and a crucial 'ecosystem engineer' and 'keystone species'. They build dams that create wetlands, store carbon, prevent flooding, and improve water quality.",
+        "habitats": [
+            "Freshwater ecosystems",
+            "Wetlands",
+            "Streams",
+            "Rivers",
+            "Ponds",
+            "Lakes",
+            "Northern Great Plains",
+            "Rio Grande"
+        ],
+        "threats": [
+            "Human intolerance",
+            "Lethal trapping",
+            "Habitat loss",
+            "Water diversion for irrigation",
+            "Agricultural land conversion",
+            "Drought",
+            "Wildfire"
+        ],
+        "shares_habitat_with": [],
+        "conservation_actions": [
+            "Installing flow devices to prevent flooding damage",
+            "Protecting trees with metal fencing",
+            "Sustainable Ranching Initiative (SRI)",
+            "Building beaver dam analogs (low-tech process-based restoration)",
+            "Conserving the Rio Grande water supply"
+        ]
+    },
+    {
+        "species": "Mountain plover",
+        "scientific_name": "Charadrius montanus",
+        "status": "Near threatened",
+        "population": "15,000–20,000",
+        "weight": "3.6 ounces",
+        "height": "5–9 inches",
+        "length": "8–10 inches",
+        "description": "One of only 12 grassland birds endemic to the western Great Plains. They strictly nest in areas with sparse vegetation or bare ground, heavily relying on prairie dog towns.",
+        "habitats": [
+            "Grasslands",
+            "Western Great Plains",
+            "Rocky Mountain states",
+            "Prairie dog towns",
+            "California",
+            "Arizona",
+            "Texas",
+            "Mexico"
+        ],
+        "threats": [
+            "Loss of nesting habitat",
+            "Prairie dog colony extermination",
+            "Lack of natural fire regimes",
+            "Conversion of native prairie for agriculture",
+            "Energy development"
+        ],
+        "shares_habitat_with": [
+            "Prairie dog"
+        ],
+        "conservation_actions": [
+            "Working with researchers and landowners to understand habitat needs",
+            "Assessing how land management and climate change impact the bird"
+        ]
+    },
+    {
+        "species": "Monarch butterfly",
+        "scientific_name": "Danaus plexippus",
+        "status": "Endangered",
+        "population": "Varying / Monitored via migration tracking",
+        "weight": "Less than half a gram",
+        "length": "Wingspan 4 inches",
+        "description": "Exhibits the most highly evolved migration pattern of any known insect, traveling 1,200 to 2,800 miles. Possesses distinct orange-red wings with black veins and white spots. Larvae are entirely dependent on milkweed as their sole food source.",
+        "habitats": [
+            "Forests",
+            "Mountains",
+            "Monarch Butterfly Reserve",
+            "Great Plains",
+            "United States",
+            "Canada",
+            "Mexico",
+            "California"
+        ],
+        "threats": [
+            "Habitat loss and fragmentation",
+            "Loss of milkweed plants",
+            "Urban planning",
+            "Agricultural expansion",
+            "Genetically modified (GMO) crops",
+            "Glyphosate and Roundup use",
+            "Neonicotinoid pesticides",
+            "Logging",
+            "Climate change"
+        ],
+        "shares_habitat_with": [],
+        "conservation_actions": [
+            "Planting milkweed to support pollinators",
+            "Promoting sustainable forest management and tourism in Mexico",
+            "Supporting tree nurseries for income generation",
+            "Conducting multiyear field trials for non-neonic treated seeds",
+            "Restoring plowed grasslands back to pollinator habitat"
+        ]
+    },
+    {
+        "species": "Marine iguana",
+        "scientific_name": "Amblyrhynchus cristatus",
+        "status": "Vulnerable",
+        "population": null,
+        "weight": null,
+        "length": "2–5.6 feet long",
+        "description": "The world's only oceangoing lizard, endemic to the Galápagos Islands where they are typically seen resting on rocky shores.",
+        "habitats": [
+            "Oceans",
+            "Galápagos Islands",
+            "Isabela Island",
+            "Puerto Villamil",
+            "Rocky shores",
+            "Beach nesting habitat"
+        ],
+        "threats": [
+            "Introduced species (cats, rats, dogs, pigs)",
+            "Climate change",
+            "Sea level rise",
+            "Air temperature rise"
+        ],
+        "shares_habitat_with": [],
+        "conservation_actions": [
+            "Extending protected nesting zones",
+            "Installing educational signs for tourists and local communities",
+            "Building temporary fences to protect nesting areas"
+        ]
+    },
+    {
+        "species": "Great white shark",
+        "scientific_name": "Carcharodon carcharias",
+        "status": "Vulnerable",
+        "population": null,
+        "weight": "4,000 – 7,000 pounds",
+        "length": "16 – 20 feet",
+        "description": "The world's largest known predatory fish. A top marine predator with a torpedo-shaped body that rips prey into mouth-sized pieces to swallow whole using 300 teeth.",
+        "habitats": [
+            "Oceans",
+            "Gulf of California",
+            "Guadalupe Island Biosphere Reserve"
+        ],
+        "threats": [
+            "Hunted for fins and teeth",
+            "Trophy hunting for sport fishing",
+            "Bycatch by commercial fisheries",
+            "Entanglement in beach protection meshes"
+        ],
+        "shares_habitat_with": [
+            "Dolphins",
+            "Seals",
+            "Halibut"
+        ],
+        "conservation_actions": [
+            "Research and monitoring of migration",
+            "Satellite tagging and tracking",
+            "Developing management plans for protected areas",
+            "Regulating tourism"
+        ]
+    },
+    {
+        "species": "Continental tiger",
+        "scientific_name": "Panthera tigris tigris",
+        "status": "Recovering in some regions / Declining in others",
+        "population": "Varying by region (All-time low in mid-2000s, recovering in India/Nepal/Bhutan)",
+        "weight": null,
+        "height": null,
+        "description": "Found on the Asian mainland, encompassing Bengal, Malayan, Indochinese, and Amur populations. An apex predator that plays a critical role in ecosystem function; protecting one tiger effectively secures around 25,000 acres of forest.",
+        "habitats": [
+            "Forests",
+            "Mangrove forests",
+            "Sundarbans",
+            "Lower Mekong",
+            "Russian Far East",
+            "Asian mainland",
+            "India",
+            "Nepal",
+            "Bhutan",
+            "China",
+            "Russia",
+            "Thailand",
+            "Vietnam",
+            "Myanmar",
+            "Malaysia"
+        ],
+        "threats": [
+            "Poaching for illegal wildlife trade",
+            "Black market demand for status symbols and decorative items",
+            "Tiger farms fueling demand",
+            "Habitat loss and fragmentation",
+            "Logging",
+            "Conversion of forests to agriculture",
+            "Commercial plantations",
+            "Infrastructure development",
+            "Prey loss (deer, wild boar, wild cattle)",
+            "Human-wildlife conflict",
+            "Retaliatory killings"
+        ],
+        "shares_habitat_with": [
+            "Asian elephant",
+            "Greater one-horned rhino",
+            "Asiatic black bear"
+        ],
+        "conservation_actions": [
+            "Enforcing zero tolerance for poaching via dedicated enforcement units",
+            "TRAFFIC collaboration to stop black market channel distribution",
+            "Deploying biogas technology for cooking stoves to reduce logging",
+            "Creating community employment and income through ecotourism",
+            "Securing continuous landscapes, conservation leases, and wildlife corridors"
+        ]
+    },
+    {
+        "species": "Sunda tiger",
+        "scientific_name": "Panthera tigris sondaica",
+        "status": "Critically Endangered",
+        "population": "Varying / Holding on in remaining forest patches",
+        "weight": "165–308 lbs.",
+        "height": null,
+        "description": "Distinguished by heavy black stripes on an orange coat. They are the last remaining Sunda Island tigers, with Javan and Balinese cousins now extinct. Their presence serves as a vital indicator of forest health.",
+        "habitats": [
+            "Tropical broadleaf evergreen forests",
+            "Freshwater swamp forests",
+            "Peat swamps",
+            "Sumatra",
+            "Thirty Hills (Bukit Tigapuluh)",
+            "Bukit Tigapuluh National Park"
+        ],
+        "threats": [
+            "Poaching for commercial trade",
+            "Black market demand for tiger parts",
+            "Accelerating deforestation",
+            "Clearing for agriculture and oil palm",
+            "Illegal timber harvesting",
+            "Forest conversion and fragmentation",
+            "Human-wildlife conflict",
+            "Retaliatory killings",
+            "Tiger farms"
+        ],
+        "shares_habitat_with": [
+            "Sumatran rhino",
+            "Sumatran orangutan",
+            "Sumatran elephant"
+        ],
+        "conservation_actions": [
+            "TX2 global initiative to double wild tiger populations",
+            "Managing a 100,000-acre forest concession company in Thirty Hills for restoration",
+            "Influencing district and provincial land-use planning and zoning",
+            "Groundbreaking research using camera traps to map wildlife corridors",
+            "Campaigning to phase out tiger farms"
+        ]
+    },
+    {
+        "species": "Indus River dolphin",
+        "scientific_name": "Platanista minor",
+        "status": "Endangered",
+        "population": "1,816",
+        "weight": "155–245 lbs.",
+        "length": "8.2 ft.",
+        "description": "An ancient, functionally blind river dolphin that originated in the Tethys Sea 50 million years ago. Relies entirely on echolocation to navigate and hunt in muddy river waters; serves as a vital indicator of river health.",
+        "habitats": [
+            "Rivers",
+            "Freshwater ecosystems",
+            "Indus River",
+            "River Beas",
+            "Pakistan",
+            "Punjab",
+            "India"
+        ],
+        "threats": [
+            "Habitat fragmentation and loss",
+            "Dams and barrages",
+            "Irrigation canal stranding",
+            "Water extraction",
+            "Poaching for meat and oil",
+            "Bycatch in fishing nets",
+            "Untreated sewage pollution",
+            "Industrial pollution",
+            "Pesticides from sugarcane and cotton crops"
+        ],
+        "shares_habitat_with": [],
+        "conservation_actions": [
+            "Establishing Farmer Field Schools to reduce agricultural chemical runoff",
+            "Rescuing stranded dolphins from irrigation canals",
+            "Training fishermen to lead ecotourism and dolphin watch activities",
+            "Population monitoring and tracking movements via radio tags"
+        ]
+    },
+    {
+        "species": "Irrawaddy dolphin",
+        "scientific_name": "Orcaella brevirostris",
+        "status": "Endangered",
+        "population": "92 (Mekong River population)",
+        "weight": "198–440 pounds",
+        "length": "5.9–9 feet",
+        "description": "Recognizable by a bulging forehead and short beak. Considered sacred by Khmer and Lao people, and serves as a crucial indicator for the overall health of the Mekong River.",
+        "habitats": [
+            "Lakes, rivers, estuaries, and coasts",
+            "Coastal areas in South and Southeast Asia",
+            "Ayeyarwady River (Myanmar)",
+            "Mahakam River (Indonesian Borneo)",
+            "Mekong River",
+            "Cambodia",
+            "Lao PDR"
+        ],
+        "threats": [
+            "Bycatch in fishing gear",
+            "Climate change",
+            "International live trade",
+            "Fishing pressure"
+        ],
+        "shares_habitat_with": [],
+        "conservation_actions": [
+            "Conducting population and ecology surveys",
+            "Habitat restoration and infrastructure improvements with corporate partners",
+            "CITES ban on international live trade",
+            "Developing community fishery management zones",
+            "Supporting alternative livelihoods (aquaculture, chicken raising, home-gardens)"
+        ]
+    },
+    {
+        "species": "Vaquita",
+        "scientific_name": "Phocoena sinus",
+        "status": "Critically endangered",
+        "population": "About 10 individuals",
+        "weight": "Up to 120 pounds",
+        "height": "Up to 5 feet",
+        "description": "The world's rarest marine mammal and most endangered cetacean. Recognized by a large dark ring around its eyes and dark patches on its lips. Extinction is imminent without a fully enforced gillnet ban.",
+        "habitats": [
+            "Marine",
+            "Northern Gulf of California",
+            "Shallow waters",
+            "Mexico"
+        ],
+        "threats": [
+            "Fishery bycatch",
+            "Entanglement in gillnets",
+            "Illegal fishing operations",
+            "Illegal trade in totoaba swim bladders",
+            "Ghost nets"
+        ],
+        "shares_habitat_with": [
+            "Totoaba",
+            "Great white shark",
+            "Gray whale"
+        ],
+        "conservation_actions": [
+            "Developing and implementing vaquita-safe fishing technologies",
+            "Enforcing gillnet bans in the Upper Gulf of California",
+            "Retrieving lost or abandoned ghost gillnets",
+            "Acoustic monitoring to estimate populations",
+            "Bilateral conservation collaboration between the US and Mexico",
+            "Combating the illegal totoaba trade globally"
+        ]
+    },
+    {
+        "species": "Amazon river dolphin",
+        "scientific_name": "Inia geoffrensis",
+        "status": "Vulnerable (in certain areas)",
+        "population": "Tens of thousands",
+        "weight": "Up to 352 pounds",
+        "length": "Up to 9.2 feet",
+        "description": "Also known as the pink river dolphin or boto. It is a freshwater cetacean that serves as a vital indicator of the health of the Amazon and Orinoco river basins.",
+        "habitats": [
+            "Rivers",
+            "Lakes",
+            "Freshwater ecosystems",
+            "Amazon river basin",
+            "Orinoco river basin",
+            "Bolivia",
+            "Brazil",
+            "Colombia",
+            "Ecuador",
+            "Guyana",
+            "Peru",
+            "Venezuela"
+        ],
+        "threats": [
+            "Dams and habitat fragmentation",
+            "Contamination of rivers and lakes",
+            "Mercury pollution from small-scale gold mining",
+            "Human-dolphin conflict over fish stocks",
+            "Deliberately killed for use as bait in catfish fisheries"
+        ],
+        "shares_habitat_with": [
+            "Jaguar",
+            "Catfish"
+        ],
+        "conservation_actions": [
+            "Protecting river dolphin habitat in the Amazon region",
+            "Supporting river dolphin surveys to determine status",
+            "Researching the impact of dams on size and dispersal of populations"
+        ]
+    },
+    {
+        "species": "Javan rhino",
+        "scientific_name": "Rhinoceros sondaicus",
+        "status": "Critically endangered",
+        "population": "About 76",
+        "weight": "1,984–5,071 pounds",
+        "height": "4.6–5.8 feet",
+        "length": "10–10.5 feet",
+        "description": "The most threatened of the five rhino species. They have a dusky grey color, a single horn up to 10 inches, and loose skin folds that give the appearance of armor plating.",
+        "habitats": [
+            "Tropical forests",
+            "Ujung Kulon National Park",
+            "Java",
+            "Indonesia"
+        ],
+        "threats": [
+            "Poaching for horn",
+            "Illegal wildlife trade",
+            "Reduced genetic diversity and inbreeding",
+            "Tsunamis",
+            "Volcanic explosions (Anak Krakatau)",
+            "Rising sea levels",
+            "Arenga palm overtaking natural forage",
+            "Disease transmission from wild cattle",
+            "Habitat degradation and human encroachment",
+            "(Eco)tourism impacts"
+        ],
+        "shares_habitat_with": [
+            "Wild cattle"
+        ],
+        "conservation_actions": [
+            "Intensive population monitoring"
+        ]
+    },
+    {
+        "species": "Leatherback turtle",
+        "scientific_name": "Dermochelys coriacea",
+        "status": "Vulnerable (many subpopulations Critically Endangered)",
+        "population": null,
+        "weight": "600–1,500 pounds",
+        "length": "55–63 inches",
+        "description": "The largest sea turtle species, named for its leather-like shell rather than a hard shell. Highly migratory across the Atlantic and Pacific Oceans, where it consumes large numbers of jellyfish.",
+        "habitats": [
+            "Marine ecosystems",
+            "Atlantic Ocean",
+            "Pacific Ocean",
+            "Indian Ocean",
+            "Coral Triangle",
+            "California coast",
+            "Bird's Head Seascape",
+            "Southeast Asia",
+            "Malaysia",
+            "Indonesia",
+            "Central America",
+            "Nesting beaches",
+            "Coral reefs",
+            "Sea grass beds"
+        ],
+        "threats": [
+            "Intense egg collection and overharvesting",
+            "Fisheries bycatch (shrimp trawl nets, longline hooks, gillnets)",
+            "Mistakenly swallowing plastic bags",
+            "Hunting and killing of adult turtles",
+            "Habitat loss",
+            "Sea level rise",
+            "Uncontrolled coastal development",
+            "Vehicle traffic on beaches",
+            "Sedimentation from clearing of land",
+            "Nutrient run-off from agriculture"
+        ],
+        "shares_habitat_with": [
+            "Jellyfish"
+        ],
+        "conservation_actions": [
+            "Working with fisheries to switch to turtle-friendly circle hooks",
+            "Smart Gear international competition to solve bycatch",
+            "Using satellite telemetry devices to track migratory routes",
+            "Establishing marine protected areas (MPAs)",
+            "Patrolling nesting beaches and equipping local conservationists",
+            "Reducing turtle and egg consumption through community awareness",
+            "Creating ecotourism opportunities and alternative livelihoods"
+        ]
+    },
+    {
+        "species": "Green turtle",
+        "scientific_name": "Chelonia mydas",
+        "status": "Least concern (Globally as of 2025, though some regional populations remain Vulnerable/Endangered)",
+        "population": "Increasing globally (Increased ~28% since the 1970s)",
+        "weight": "150–400 pounds",
+        "length": "31–47 inches",
+        "description": "One of the largest sea turtles and the only herbivorous species. Named for the green color of their fat (from their diet of seagrass and algae), not their shells. They act as the 'lawnmowers' of the ocean, maintaining highly productive seagrass beds.",
+        "habitats": [
+            "Oceans",
+            "Tropical waters",
+            "Subtropical waters",
+            "Seagrass beds",
+            "Coral reefs",
+            "Nesting beaches"
+        ],
+        "threats": [
+            "Fisheries bycatch (shrimp trawls, longlines, gillnets)",
+            "Ghost gear entanglement",
+            "Habitat loss",
+            "Coastal development and pollution",
+            "Overharvesting of eggs",
+            "Hunting for meat, medicine, and traditional ceremonies",
+            "Climate change (altering sand temperatures affecting hatchling sex)",
+            "Plastic pollution"
+        ],
+        "shares_habitat_with": [
+            "Invertebrates",
+            "Fish"
+        ],
+        "conservation_actions": [
+            "Working with fisheries to adopt turtle-friendly circle hooks",
+            "Smart Gear competition to innovate bycatch solutions",
+            "Establishing Marine Protected Areas (MPAs)",
+            "Monitoring and patrolling turtle nesting beaches",
+            "Using innovative DNA-based tools like Shellbank",
+            "Blue Corridors for Turtles tracking",
+            "Satellite tracking migration patterns",
+            "TRAFFIC monitoring of illegal trade"
+        ]
+    },
+    {
+        "species": "Olive ridley turtle",
+        "scientific_name": "Lepidochelys olivacea",
+        "status": "Vulnerable",
+        "population": "Most abundant of all sea turtles",
+        "weight": "75–110 pounds",
+        "length": "24–28 inches",
+        "description": "Named for the olive green hue of its shell. While currently the most abundant sea turtle, they are highly vulnerable because they rely on mass nesting events at a very small number of specific beaches.",
+        "habitats": [
+            "Oceans",
+            "Coral reefs",
+            "Sea grass beds",
+            "Eastern Pacific",
+            "Nesting beaches",
+            "Foraging grounds"
+        ],
+        "threats": [
+            "Disturbance to critical nesting beaches",
+            "Climate change (warmer temperatures disrupting sex ratios)",
+            "Warmer sea surface temperatures destroying foraging grounds",
+            "Severe storms and sea level rise damaging nests",
+            "Fisheries bycatch (tuna longlines, gillnets)"
+        ],
+        "shares_habitat_with": [],
+        "conservation_actions": [
+            "Establishing Marine Protected Areas (MPAs)",
+            "Monitoring and patrolling nesting beaches",
+            "Raising awareness on sea level rise and providing shade for nests",
+            "Working with fisheries to adopt turtle-friendly circle hooks",
+            "Running the Smart Gear international competition to solve bycatch",
+            "Satellite tracking movements to prevent fisheries interactions",
+            "Studying climate change effects to build ecosystem resilience"
+        ]
+    },
+    {
+        "species": "Loggerhead turtle",
+        "scientific_name": "Caretta caretta",
+        "status": "Vulnerable",
+        "population": null,
+        "weight": "175–400 pounds",
+        "length": "33–48 inches",
+        "description": "Named for their large heads and powerful jaw muscles that crush hard-shelled prey. They act as moving micro-ecosystems, with up to 100 species of small plants and animals recorded living on a single loggerhead's shell.",
+        "habitats": [
+            "Oceans",
+            "Mediterranean",
+            "Greece",
+            "Turkey",
+            "Israel",
+            "Libya",
+            "Coral reefs",
+            "Sea grass beds",
+            "Nesting beaches"
+        ],
+        "threats": [
+            "Fisheries bycatch (shrimp trawl nets, longline hooks, fishing gillnets)",
+            "Tourism development on nesting beaches"
+        ],
+        "shares_habitat_with": [
+            "Clams",
+            "Sea urchins"
+        ],
+        "conservation_actions": [
+            "Working with fisheries to adopt turtle-friendly circle hooks",
+            "Smart Gear international competition to innovate bycatch solutions",
+            "Tracking turtle movements with satellite devices",
+            "Establishing Marine Protected Areas (MPAs)",
+            "Monitoring and patrolling turtle nests",
+            "Equipping local turtle conservationists",
+            "Fostering ecotourism opportunities and alternative livelihoods"
+        ]
+    },
+    {
+        "species": "Hawksbill turtle",
+        "scientific_name": "Eretmochelys imbricata",
+        "status": "Critically endangered",
+        "population": "Estimated 8,000 nesting females globally",
+        "weight": "90–150 lbs.",
+        "length": "30–35 in.",
+        "description": "Named for their narrow, pointed beak and patterned, overlapping shell scales. They play a vital role in coral reef health by extracting sponges, which allows reef fish better access to feed.",
+        "habitats": [
+            "Oceans",
+            "Tropical oceans",
+            "Coral reefs",
+            "Coral Triangle",
+            "Nesting beaches"
+        ],
+        "threats": [
+            "Illegal wildlife trade (tortoiseshell items)",
+            "Fisheries bycatch (gillnets, fishing hooks)",
+            "Loss of nesting and feeding habitats",
+            "Excessive egg collection",
+            "Pollution",
+            "Coastal development"
+        ],
+        "shares_habitat_with": [
+            "Sponges",
+            "Sea anemones",
+            "Jellyfish",
+            "Reef fish"
+        ],
+        "conservation_actions": [
+            "Working with fisheries to adopt circle hooks and turtle excluder devices",
+            "Smart Gear international competition to solve bycatch",
+            "Satellite tracking movements to prevent fisheries interactions",
+            "Establishing Marine Protected Areas (MPAs)",
+            "Monitoring and patrolling turtle nests",
+            "Addressing the wildlife trade through TRAFFIC",
+            "Developing alternative livelihoods and ecotourism"
+        ]
+    },
+    {
+        "species": "Polar bear",
+        "scientific_name": "Ursus maritimus",
+        "status": "Vulnerable",
+        "population": "About 26,000",
+        "weight": "800–1,300 lbs. (males), 300–700 lbs. (females)",
+        "length": "6–9 ft.",
+        "description": "The largest bear in the world and the Arctic's top predator. Meaning 'sea bear', they are heavily dependent on sea ice for traveling, hunting seals, resting, and creating maternal dens.",
+        "habitats": [
+            "Arctic Ocean",
+            "Sea ice",
+            "Adjacent coastal areas",
+            "Alaska",
+            "Southern Beaufort Sea",
+            "Chukchi Sea",
+            "Bering Sea",
+            "Hudson Bay",
+            "Kane Basin",
+            "M'Clintok Channel",
+            "Northeast Canada",
+            "Northern Greenland (Last Ice Area)"
+        ],
+        "threats": [
+            "Climate change and loss of sea ice habitat",
+            "Human-caused greenhouse gas emissions",
+            "Human-wildlife conflict",
+            "Toxic pollution",
+            "Industrial development (oil and gas exploration)",
+            "Seismic testing",
+            "Offshore ship traffic and oil spills"
+        ],
+        "shares_habitat_with": [
+            "Ringed seals",
+            "Bearded seals",
+            "Plankton",
+            "Microorganisms"
+        ],
+        "conservation_actions": [
+            "Advancing policies to reduce carbon emissions and promote renewable energy",
+            "Supporting locally led initiatives to reduce human-bear conflict",
+            "Monitoring populations using satellite telemetry ear tags and environmental DNA (eDNA)",
+            "Incorporating Traditional Ecological Knowledge (TEK) from Indigenous peoples",
+            "Opposing unsustainable oil and gas development",
+            "Protecting maternal denning areas and movement corridors",
+            "Regulating hunting via the International Agreement on the Conservation of Polar Bears"
+        ]
+    },
+    {
+        "species": "Giant panda",
+        "scientific_name": "Ailuropoda melanoleuca",
+        "status": "Vulnerable",
+        "population": "1,864 in the wild",
+        "weight": "220–330 pounds",
+        "height": "More than 4 feet",
+        "description": "A bear with a distinctive black and white coat that serves as the universal symbol for conservation. It subsists almost entirely on bamboo and features enlarged wrist bones functioning as opposable thumbs.",
+        "habitats": [
+            "Temperate broadleaf and mixed forests",
+            "Mountains of southwest China",
+            "Yangtze Basin region",
+            "Panda reserves"
+        ],
+        "threats": [
+            "Infrastructure development (dams, roads, and railways)",
+            "Habitat fragmentation and isolation",
+            "Loss of bamboo forests",
+            "Accidental capture in snares set for other species"
+        ],
+        "shares_habitat_with": [
+            "Multicolored pheasants",
+            "Golden monkey",
+            "Takin",
+            "Crested ibis",
+            "Musk deer"
+        ],
+        "conservation_actions": [
+            "Establishing over 50 panda reserves",
+            "Enacting the Wildlife Protection Act (1988)",
+            "Assisting and influencing policy-level conservation decisions",
+            "Generating sustainable economic benefits through ecotourism"
+        ]
+    },
+    {
+        "species": "Black-footed ferret",
+        "scientific_name": "Mustela nigripes",
+        "status": "Endangered",
+        "population": "About 495 in the wild (Target: 3,000)",
+        "weight": "1.5–2.5 pounds",
+        "length": "18–24 inches",
+        "description": "One of North America's most endangered mammals and its only native ferret species. Rediscovered in 1981 after being thought extinct. Their survival is entirely dependent on prairie dogs and their colonies for food, shelter, and raising young.",
+        "habitats": [
+            "Grasslands",
+            "Northern Great Plains",
+            "Wyoming",
+            "Fort Belknap Reservation",
+            "Prairie dog colonies",
+            "North America"
+        ],
+        "threats": [
+            "Habitat loss",
+            "Non-native disease (Sylvatic plague)",
+            "Decimation of prairie dog populations"
+        ],
+        "shares_habitat_with": [
+            "Black-tailed prairie dog"
+        ],
+        "conservation_actions": [
+            "Captive breeding and reintroductions",
+            "Cloning",
+            "Habitat protection",
+            "Relocating prairie dogs to increase ferret habitat",
+            "Mitigating sylvatic plague and participating in oral vaccine research",
+            "Collaborating with tribal communities and private landowners"
+        ]
+    },
+    {
+        "species": "Red panda",
+        "scientific_name": "Ailurus fulgens",
+        "status": "Endangered",
+        "population": "About 10,000",
+        "weight": "Slightly larger than a domestic cat",
+        "length": "2 ft. height",
+        "description": "A highly skillful and acrobatic arboreal mammal with thick russet fur, a bear-like body, and a long, bushy tail used for balance and winter warmth. Its name derives from the Nepali word 'ponya', meaning bamboo-eater.",
+        "habitats": [
+            "Temperate forests",
+            "Eastern Himalayas",
+            "Langtang National Park",
+            "India",
+            "Sikkim",
+            "Nepal",
+            "Bhutan",
+            "China",
+            "Myanmar"
+        ],
+        "threats": [
+            "Habitat loss and fragmentation",
+            "Clearing of forest home (loss of nesting trees and bamboo)",
+            "Accidental capture in traps meant for other animals (wild pigs, deer)",
+            "Poaching for pelts",
+            "Illegal trade of fur caps and hats"
+        ],
+        "shares_habitat_with": [
+            "Wild pigs",
+            "Deer",
+            "Yak herders"
+        ],
+        "conservation_actions": [
+            "Monitoring populations and habitat across India, Nepal, and Bhutan",
+            "Evaluating reintroduction feasibility in Sikkim",
+            "Raising community awareness with farmers, students, and monks",
+            "Enforcing strict anti-poaching legal fines ($1,000 and/or 10 years jail)",
+            "Manufacturing yak dung briquettes as an alternative fuel source to prevent logging",
+            "Developing community-based tourism packages for alternative income"
+        ]
+    },
+    {
+        "species": "Saola",
+        "scientific_name": "Pseudoryx nghetinhensis",
+        "status": "Critically endangered (possibly functionally extinct)",
+        "population": "Unknown (Likely fewer than 100, possibly single digits)",
+        "weight": "176–220 lbs.",
+        "height": "About 33 in. at the shoulder",
+        "description": "Often called the Asian unicorn, it is one of the rarest large mammals on Earth, discovered only in 1992. Known by its two parallel spindle horns and white facial markings, it has not been confirmed in the wild since 2013 and cannot survive in traditional captivity.",
+        "habitats": [
+            "Evergreen forests",
+            "Annamite Mountains",
+            "Laos",
+            "Viet Nam",
+            "Vu Quang Nature Reserve"
+        ],
+        "threats": [
+            "Indiscriminate snaring (bycatch)",
+            "Growing demand for wild meat and traditional medicine",
+            "Habitat loss and fragmentation",
+            "Agricultural expansion",
+            "Infrastructure development"
+        ],
+        "shares_habitat_with": [
+            "Mice",
+            "Elephants"
+        ],
+        "conservation_actions": [
+            "Intensive camera trapping networks",
+            "eDNA stream surveys to detect surviving populations",
+            "Establishing saola reserves and improving community-based forest management",
+            "Capacity building for government and community rangers",
+            "Developing a specialized breeding center for potential future captures"
+        ]
+    },
+    {
+        "species": "Galápagos sea lion",
+        "scientific_name": "Zalophus wollebaeki",
+        "status": "Endangered",
+        "population": "Estimated 17,200–24,200",
+        "weight": "About 400 lbs.",
+        "length": "6 ft.",
+        "description": "The most common marine mammal in the Galápagos. They haul out in large colonies on rocks and shores, but frequently clash with local fishing communities when resting on boats.",
+        "habitats": [
+            "Oceans",
+            "Galápagos Islands",
+            "San Cristóbal Island",
+            "Rocks and sandy shores"
+        ],
+        "threats": [
+            "Diseases transmitted by introduced species (dogs)",
+            "Climate change and El Niño altering ocean currents and fish prey abundance",
+            "Fisheries bycatch",
+            "Human-wildlife conflict (severe injuries from barbed wire on fishing boats)"
+        ],
+        "shares_habitat_with": [],
+        "conservation_actions": [
+            "Designing and installing dedicated floating bases for sea lions to rest",
+            "Building a primary care nursery for injured individuals",
+            "Conducting environmental education and community awareness sessions",
+            "Implementing the 2025–2030 San Cristóbal Island Management Plan"
+        ]
+    },
+    {
+        "species": "Arctic wolf",
+        "scientific_name": "Canis lupus arctos",
+        "status": "Least concern",
+        "population": "Stable (Estimated 200,000 globally)",
+        "weight": "70–175 pounds",
+        "length": "3.2–5.9 feet",
+        "description": "Also known as the 'polar wolf' or 'white wolf'. It is the only wolf subspecies that still inhabits the entirety of its original range, thanks to the extreme isolation of its Arctic tundra habitat.",
+        "habitats": [
+            "Arctic tundra",
+            "North America",
+            "Greenland",
+            "Ellesmere Island",
+            "Devon Island",
+            "Alaska"
+        ],
+        "threats": [
+            "Climate change (extreme weather variations)",
+            "Industrial development (mines, roads, and pipelines)",
+            "Reduction in prey availability (musk ox and Arctic hare declines)"
+        ],
+        "shares_habitat_with": [
+            "Musk ox",
+            "Arctic hare",
+            "Caribou"
+        ],
+        "conservation_actions": [
+            "Combating climate change impacts through global advocacy",
+            "Preserving biodiversity in the Arctic region",
+            "Monitoring habitat health via government and community partnerships"
+        ]
+    },
+    {
+        "species": "Arctic fox",
+        "scientific_name": "Vulpes lagopus",
+        "status": "Least concern",
+        "population": "Several hundred thousand",
+        "weight": "3–20 pounds",
+        "height": "11 inches",
+        "length": "18–27 inches",
+        "description": "A primarily carnivorous mammal that lives inland in the tundra. They are heavily dependent on lemming population cycles for survival and act as a vital indicator of Arctic ecosystem stability.",
+        "habitats": [
+            "Tundra",
+            "Arctic regions"
+        ],
+        "threats": [
+            "Scarcity of prey (lemming population fluctuations)",
+            "Disease",
+            "Genetic pollution from captive-bred foxes",
+            "Climate change (reduced sea ice, melting permafrost, rising sea levels)",
+            "Hunting for fur trade"
+        ],
+        "shares_habitat_with": [
+            "Lemmings",
+            "Sea birds",
+            "Fish"
+        ],
+        "conservation_actions": [
+            "Mitigating the effects of climate change",
+            "Protecting fragile Arctic ecosystems",
+            "Monitoring population health to ensure ecosystem safety"
+        ]
+    },
+    {
+        "species": "Snow leopard",
+        "scientific_name": "Panthera uncia",
+        "status": "Vulnerable",
+        "population": "4,000–6,500",
+        "weight": "60–120 lbs.",
+        "length": "2–5 ft.",
+        "description": "The 'ghost of the mountains,' this elusive big cat has evolved to thrive in high-altitude, rocky Himalayan environments. It is a top predator and a vital indicator of mountain ecosystem health and freshwater reservoir stability.",
+        "habitats": [
+            "High mountains",
+            "Asia (12 countries: Afghanistan, Bhutan, China, India, Kazakhstan, Kyrgyzstan, Mongolia, Nepal, Pakistan, Russia, Tajikistan, Uzbekistan)",
+            "Himalayas",
+            "Ukok Plateau"
+        ],
+        "threats": [
+            "Climate change (loss of alpine habitat and prey)",
+            "Poaching for illegal wildlife trade (fur, bones, body parts)",
+            "Retaliatory killings due to livestock conflict",
+            "Habitat fragmentation and degradation",
+            "Mining and linear infrastructure development",
+            "Declines in natural prey species"
+        ],
+        "shares_habitat_with": [
+            "Blue sheep",
+            "Argali wild sheep",
+            "Ibex",
+            "Marmots",
+            "Pika",
+            "Hares",
+            "Dzeren antelope",
+            "Black stork",
+            "Steppe eagle"
+        ],
+        "conservation_actions": [
+            "Mobile antipoaching activities",
+            "Partnering with e-commerce companies to end online wildlife trafficking",
+            "Installing predator-proof livestock pens",
+            "Implementing community-based livestock insurance plans",
+            "National population assessments (e.g., Bhutan, India, Mongolia)",
+            "Integrating eDNA sampling and traditional ecological knowledge"
+        ]
+    },
+    {
+        "species": "Sloth",
+        "scientific_name": "Bradypus (genus)",
+        "status": "Vulnerable/Not listed (varies by species)",
+        "population": "Unknown/Varying",
+        "weight": null,
+        "length": null,
+        "description": "Sluggish, long-armed tree-dwellers of Central and South American tropical rainforests. They have exceptionally low metabolic rates and are surprisingly excellent swimmers.",
+        "habitats": [
+            "Tropical rainforests",
+            "Central America",
+            "South America",
+            "Amazon"
+        ],
+        "threats": [
+            "Deforestation",
+            "Loss of tree canopy shelter",
+            "Predation while on forest floor"
+        ],
+        "shares_habitat_with": [],
+        "conservation_actions": [
+            "Building canopy bridges",
+            "Encouraging sustainable forestry",
+            "Global Forest & Trade Network (GFTN) for responsible products",
+            "Amazon Region Protected Areas (ARPA) initiative"
+        ]
+    },
+    {
+        "species": "Pangolin",
+        "scientific_name": "Manis spp. / Phataginus spp. / Smutsia spp.",
+        "status": "Vulnerable to Critically Endangered (across 8+ species)",
+        "population": "Declining (estimated 1,000,000+ trafficked over 10 years)",
+        "weight": "4.4–7 lbs.",
+        "length": null,
+        "description": "The world's only scaly mammal. Solitary and primarily nocturnal, they are famous for curling into an armored ball when threatened. They act as essential forest and grassland regulators.",
+        "habitats": [
+            "Forests",
+            "Grasslands",
+            "Africa",
+            "Asia"
+        ],
+        "threats": [
+            "Illegal wildlife trade (meat, scales, leather)",
+            "Traditional medicine market demand",
+            "Transnational smuggling operations",
+            "Online illegal listings"
+        ],
+        "shares_habitat_with": [],
+        "conservation_actions": [
+            "Co-convening the Coalition to End Wildlife Trafficking Online",
+            "Lobbying for strong national laws and enforcement",
+            "Strengthening legislation in China (removing scales from pharmacopoeia)",
+            "Reducing market demand in China and Viet Nam",
+            "Blocking illegal online listings through tech company partnerships"
+        ]
+    },
+    {
+        "species": "Penguin",
+        "scientific_name": "Spheniscidae (family)",
+        "status": "Varies by species (Emperor penguin now Endangered as of April 2026)",
+        "population": "Varies by species",
+        "weight": "2–80 lbs.",
+        "height": "1.25–3.5 ft.",
+        "description": "Flightless seabirds that 'fly' underwater. They serve as a critical sentinel species; their population health, particularly that of Antarctic species, directly mirrors the status of sea ice and ocean food webs.",
+        "habitats": [
+            "Oceans",
+            "Southern Hemisphere",
+            "Antarctica",
+            "Galápagos Islands",
+            "Coastal regions"
+        ],
+        "threats": [
+            "Climate change (loss of sea ice)",
+            "Commercial fishing (bycatch and prey competition)",
+            "Oil spills",
+            "Introduced species (dogs, cats, mosquitoes)",
+            "Human disturbance to nesting sites"
+        ],
+        "shares_habitat_with": [
+            "Krill",
+            "Small fish",
+            "Squid"
+        ],
+        "conservation_actions": [
+            "Establishing marine protected areas (MPAs)",
+            "Implementing specialized management plans (e.g., Galápagos San Cristóbal Plan)",
+            "Fishery management to prevent competition for prey",
+            "Satellite remote sensing for population monitoring"
+        ]
+    }
+]

@@ -1,0 +1,17 @@
+# Endangered Species Agentic GraphRAG QA — runtime dependencies
+# Tested with Python 3.12 on Windows.
+# Lower bounds match the versions present in the dev environment; upper
+# bounds prevent silent breakage on the next major release.
+
+# --- Core graph + agent stack ---------------------------------------------
+neo4j>=6.1.0,<7.0.0
+python-dotenv>=1.2.0,<2.0.0
+pydantic>=2.12.0,<3.0.0
+
+langchain-core>=1.4.0,<2.0.0
+langchain-community>=0.4.1,<0.5.0
+langchain-ollama>=1.1.0,<2.0.0
+langgraph>=1.1.0,<2.0.0
+
+# Underlying Ollama HTTP client (langchain-ollama wraps it but doesn't pin it).
+ollama>=0.6.0,<1.0.0

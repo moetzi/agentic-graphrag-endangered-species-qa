@@ -1,0 +1,44 @@
+services:
+  neo4j:
+    image: neo4j:5.25-community
+    container_name: endangered-species-qa
+    restart: unless-stopped
+
+    ports:
+      - "7474:7474"   # HTTP / Neo4j Browser
+      - "7687:7687"   # Bolt
+
+    # NEO4J_AUTH must be "user/password" (slash-separated) or "none".
+    # Username is fixed to "neo4j" because that's the bootstrap admin user
+    # in the community image; only the password is a real secret.
+    # NEO4J_USER / NEO4J_PASSWORD are NOT real Neo4j env vars — they are read
+    # only by our Python code (which we mirror here for a single source of
+    # truth via .env interpolation).
+    environment:
+      NEO4J_AUTH: "${NEO4J_USER:-neo4j}/${NEO4J_PASSWORD:?NEO4J_PASSWORD must be set in .env}"
+      NEO4J_PLUGINS: '["apoc"]'
+      NEO4J_apoc_import_file_enabled: "true"
+      NEO4J_apoc_export_file_enabled: "true"
+      NEO4J_apoc_export_file_use__neo4j__config: "true"
+      # Memory tuned to match the 1.5 GiB container limit below.
+      NEO4J_server_memory_heap_initial__size: "512m"
+      NEO4J_server_memory_heap_max__size: "768m"
+      NEO4J_server_memory_pagecache_size: "256m"
+
+    volumes:
+      - ./neo4j_data:/data
+      - ./neo4j_logs:/logs
+      - ./neo4j_conf:/conf
+      # CSV / JSON drops for `LOAD CSV` or `apoc.load.json`. The species.json
+      # file already lives in ./data, so we mount that directory directly.
+      - ./data:/var/lib/neo4j/import
+
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://localhost:7474 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+
+    # `deploy.resources` is Swarm-only; `mem_limit` is what compose enforces.
+    mem_limit: 1.5g

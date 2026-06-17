@@ -1,0 +1,44 @@
+# --- Secrets & local config -----------------------------------------------
+.env
+.env.*
+!.env.example
+
+# --- Python ----------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# --- Virtual environments --------------------------------------------------
+.venv/
+venv/
+env/
+
+# --- Neo4j Docker volumes (mounted by docker-compose.yml) -----------------
+neo4j_data/
+neo4j_logs/
+neo4j_conf/
+
+# --- Evaluation outputs (regenerable; keep ground_truth.json tracked) -----
+evaluation/runs/
+evaluation/reports/
+evaluation/*.csv
+evaluation/*.parquet
+
+# --- Editor & OS junk ------------------------------------------------------
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# --- Jupyter ---------------------------------------------------------------
+.ipynb_checkpoints/
+
+# --- Logs ------------------------------------------------------------------
+*.log
