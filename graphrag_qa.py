@@ -4,14 +4,22 @@ Agentic GraphRAG over Neo4j with a ReAct loop driven by Ollama.
 Tools are derived from `evaluation.tool_catalog.TOOL_CATALOG` so the agent's
 runtime tools cannot drift from the ground truth's `expected_tools`.
 
+Two optional ablation components can be toggled at build time:
+
+    build_app(with_planner=True)    # prepend a hop/category hint
+    build_app(with_validator=True)  # rule-based grounded-answer check
+                                    # with one self-correction retry
+
 Run a single question (CLI):
     python graphrag_qa.py "What threats does the Sumatran orangutan face?"
+    python graphrag_qa.py --planner --validator "..."
 
 Programmatic entry point used by the evaluation runner:
     from graphrag_qa import build_app, ask
-    app = build_app()
+    app = build_app(with_planner=True, with_validator=True)
     result = ask(app, "...question...")
-    # result -> {"answer": str, "tool_calls": [...], "messages": [...]}
+    # result -> {"answer": str, "tool_calls": [...], "messages": [...],
+    #            "plan": Plan|None, "validation": [...]}
 """
 from __future__ import annotations
 
@@ -41,11 +49,17 @@ from langchain_core.messages import (              # noqa: E402
 )
 from langchain_core.tools import StructuredTool    # noqa: E402
 from langchain_ollama import ChatOllama            # noqa: E402
-from langgraph.graph import StateGraph, START      # noqa: E402
+from langgraph.graph import StateGraph, START, END  # noqa: E402
 from langgraph.graph.message import add_messages   # noqa: E402
 from langgraph.prebuilt import ToolNode, tools_condition  # noqa: E402
 
+from evaluation.planner import Plan, plan as classify_plan  # noqa: E402
 from evaluation.tool_catalog import TOOL_CATALOG   # noqa: E402
+from evaluation.validator import (                 # noqa: E402
+    ValidationResult,
+    validate as validate_answer,
+    violations_message,
+)
 
 # --------------------------------------------------------------------------- #
 # Configuration                                                               #
@@ -78,6 +92,13 @@ SYSTEM_PROMPT = SystemMessage(
 # --------------------------------------------------------------------------- #
 class AgentState(BaseModel):
     messages: Annotated[list[AnyMessage], add_messages] = Field(default_factory=list)
+    # Planner / validator metadata (None when their nodes are disabled).
+    plan: Plan | None = None
+    validation: ValidationResult | None = None
+    retry_count: int = 0
+    question: str = ""
+
+    model_config = {"arbitrary_types_allowed": True}
 
 
 # --------------------------------------------------------------------------- #
@@ -145,11 +166,26 @@ def _connect_graph() -> Neo4jGraph:
 def build_app(
     graph: Neo4jGraph | None = None,
     llm: ChatOllama | None = None,
+    *,
+    with_planner: bool = False,
+    with_validator: bool = False,
+    max_validation_retries: int = 1,
 ) -> Any:
     """Compile the ReAct LangGraph application.
 
-    Both `graph` and `llm` are injectable so the evaluation runner can swap in
-    a mock graph or a different model without re-wiring the topology.
+    Parameters
+    ----------
+    graph, llm
+        Injectable for testing. Production callers can leave them None.
+    with_planner
+        If True, prepend a planner node that classifies the question's
+        hop/category and injects a SystemMessage hint before the agent runs.
+    with_validator
+        If True, append a rule-based validator node after each agent turn.
+        On violation, the validator routes back to the agent with up to
+        ``max_validation_retries`` retries.
+    max_validation_retries
+        Hard cap on revision rounds. 1 is plenty for 7–9B models.
     """
     graph = graph or _connect_graph()
     llm = llm or ChatOllama(
@@ -161,6 +197,23 @@ def build_app(
     tools = build_tools(graph)
     llm_with_tools = llm.bind_tools(tools)
 
+    # ---- planner node ----------------------------------------------------- #
+    def planner_node(state: AgentState) -> dict:
+        question = state.question or ""
+        # First HumanMessage backs out the question if it wasn't passed in.
+        if not question:
+            for m in state.messages:
+                if isinstance(m, HumanMessage):
+                    question = m.content if isinstance(m.content, str) else str(m.content)
+                    break
+        p = classify_plan(question, llm_fallback=llm)
+        hint_msg = SystemMessage(
+            content=f"Planner hint ({p.backend}, {p.hop}-hop, "
+                    f"category={p.category}): {p.hint}"
+        )
+        return {"plan": p, "messages": [hint_msg], "question": question}
+
+    # ---- agent node ------------------------------------------------------- #
     def call_model(state: AgentState) -> dict:
         messages = state.messages
         if not any(isinstance(m, SystemMessage) for m in messages):
@@ -168,13 +221,88 @@ def build_app(
         response = llm_with_tools.invoke(messages)
         return {"messages": [response]}
 
+    # ---- validator node --------------------------------------------------- #
+    def validate_node(state: AgentState) -> dict:
+        # Most recent AIMessage is the candidate answer.
+        ai_msgs = [m for m in state.messages if isinstance(m, AIMessage)]
+        if not ai_msgs:
+            return {"validation": ValidationResult(violations=[])}
+        final = ai_msgs[-1]
+        # If the agent is requesting more tools, defer validation —
+        # tools_condition routes back to "tools" before this node runs.
+        if final.tool_calls:
+            return {"validation": ValidationResult(violations=[])}
+
+        answer = final.content if isinstance(final.content, str) else str(final.content)
+
+        # Reconstruct tool_calls from the message history.
+        tool_calls = _extract_tool_calls(state.messages)
+        result = validate_answer(answer, tool_calls, question=state.question)
+
+        out: dict[str, Any] = {"validation": result}
+        if not result.ok and state.retry_count < max_validation_retries:
+            out["messages"] = [SystemMessage(content=violations_message(result.violations))]
+            out["retry_count"] = state.retry_count + 1
+        return out
+
+    def _from_validate(state: AgentState) -> str:
+        v = state.validation
+        # Stop if no violations OR we've already used our retry budget.
+        if v is None or v.ok:
+            return END
+        if state.retry_count >= max_validation_retries:
+            return END
+        return "agent"
+
+    # ---- assemble the graph ---------------------------------------------- #
     workflow = StateGraph(AgentState)
     workflow.add_node("agent", call_model)
     workflow.add_node("tools", ToolNode(tools))
-    workflow.add_edge(START, "agent")
-    workflow.add_conditional_edges("agent", tools_condition)
-    workflow.add_edge("tools", "agent")
+    if with_planner:
+        workflow.add_node("planner", planner_node)
+        workflow.add_edge(START, "planner")
+        workflow.add_edge("planner", "agent")
+    else:
+        workflow.add_edge(START, "agent")
+
+    if with_validator:
+        workflow.add_node("validate", validate_node)
+        # tools_condition routes:  agent -> tools (loop)  OR  agent -> validate
+        workflow.add_conditional_edges(
+            "agent",
+            tools_condition,
+            {"tools": "tools", END: "validate"},
+        )
+        workflow.add_edge("tools", "agent")
+        workflow.add_conditional_edges(
+            "validate",
+            _from_validate,
+            {"agent": "agent", END: END},
+        )
+    else:
+        workflow.add_conditional_edges("agent", tools_condition)
+        workflow.add_edge("tools", "agent")
+
     return workflow.compile()
+
+
+def _extract_tool_calls(messages: list[AnyMessage]) -> list[dict]:
+    """Walk the message history pairing AIMessage tool calls with the
+    matching ToolMessage outputs."""
+    pending: dict[str, dict] = {}
+    out: list[dict] = []
+    for m in messages:
+        if isinstance(m, AIMessage):
+            for tc in m.tool_calls or []:
+                pending[tc["id"]] = {"name": tc["name"],
+                                     "args": tc.get("args", {}),
+                                     "output": None}
+        elif isinstance(m, ToolMessage):
+            entry = pending.pop(m.tool_call_id, None)
+            if entry is not None:
+                entry["output"] = m.content
+                out.append(entry)
+    return out
 
 
 # --------------------------------------------------------------------------- #
@@ -189,56 +317,87 @@ def ask(app: Any, question: str) -> dict:
         answer:     final assistant answer (str)
         tool_calls: list of {name, args, output}
         messages:   raw message history
+        plan:       Plan instance or None (only present if planner was on)
+        validation: list[str] of rule violations on the FINAL answer (post-retry)
+        retry_count: how many self-correction passes were triggered
     """
-    initial = AgentState(messages=[HumanMessage(content=question)])
+    initial = AgentState(messages=[HumanMessage(content=question)],
+                         question=question)
     final_state = app.invoke(initial)
     messages = final_state["messages"]
+    tool_calls = _extract_tool_calls(messages)
 
-    tool_calls: list[dict] = []
-    pending: dict[str, dict] = {}
-    for m in messages:
-        if isinstance(m, AIMessage):
-            for tc in m.tool_calls or []:
-                pending[tc["id"]] = {
-                    "name": tc["name"],
-                    "args": tc.get("args", {}),
-                    "output": None,
-                }
-        elif isinstance(m, ToolMessage):
-            entry = pending.get(m.tool_call_id)
-            if entry is not None:
-                entry["output"] = m.content
-                tool_calls.append(entry)
-
-    final_msg = messages[-1]
+    # The agent's last AIMessage is the answer. The validator may append a
+    # SystemMessage after it (a nag for the next iteration); skip those.
+    final_msg = next(
+        (m for m in reversed(messages) if isinstance(m, AIMessage)),
+        messages[-1],
+    )
     answer = final_msg.content if hasattr(final_msg, "content") else str(final_msg)
-    return {"answer": answer, "tool_calls": tool_calls, "messages": messages}
+
+    plan_obj = final_state.get("plan")
+    validation = final_state.get("validation")
+    retry_count = final_state.get("retry_count", 0)
+
+    return {
+        "answer": answer,
+        "tool_calls": tool_calls,
+        "messages": messages,
+        "plan": plan_obj,
+        "validation": list(validation.violations) if validation else [],
+        "retry_count": retry_count,
+    }
 
 
 # --------------------------------------------------------------------------- #
 # CLI                                                                         #
 # --------------------------------------------------------------------------- #
 if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("question", nargs="*",
+                        help="Question to ask. Defaults to a multi-hop probe.")
+    parser.add_argument("--planner", action="store_true",
+                        help="Enable the hop/category planner node.")
+    parser.add_argument("--validator", action="store_true",
+                        help="Enable the rule-based validator node.")
+    args = parser.parse_args()
+
     print("Agentic GraphRAG (ReAct) — Neo4j + Ollama")
-    print(f"  Neo4j:  {NEO4J_URI}")
-    print(f"  Ollama: {OLLAMA_MODEL} @ {OLLAMA_BASE_URL}")
-    print(f"  Tools:  {len(TOOL_CATALOG)} ({', '.join(TOOL_CATALOG)})")
+    print(f"  Neo4j:      {NEO4J_URI}")
+    print(f"  Ollama:     {OLLAMA_MODEL} @ {OLLAMA_BASE_URL}")
+    print(f"  Tools:      {len(TOOL_CATALOG)} ({', '.join(TOOL_CATALOG)})")
+    print(f"  Planner:    {'on' if args.planner else 'off'}")
+    print(f"  Validator:  {'on' if args.validator else 'off'}")
     print()
 
     question = (
-        " ".join(sys.argv[1:])
-        if len(sys.argv) > 1
+        " ".join(args.question)
+        if args.question
         else "Which species share a habitat with the Sumatran orangutan and "
              "are threatened by habitat loss?"
     )
     print(f"User: {question}\n")
 
-    app = build_app()
+    app = build_app(with_planner=args.planner, with_validator=args.validator)
     result = ask(app, question)
+
+    if result["plan"]:
+        p = result["plan"]
+        print(f"─── plan ─── ({p.backend})")
+        print(f"  hop={p.hop} category={p.category}")
+        print(f"  hint: {p.hint}")
+        print()
 
     print("─── tool calls ───")
     for tc in result["tool_calls"]:
         print(f"  • {tc['name']}({tc['args']}) -> {tc['output']}")
+
+    if result["validation"]:
+        print(f"\n─── validator (after {result['retry_count']} retry/retries) ───")
+        for v in result["validation"]:
+            print(f"  ! {v}")
 
     print("\n─── final answer ───")
     print(result["answer"])
