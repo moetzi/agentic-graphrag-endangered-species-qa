@@ -4,28 +4,26 @@ Agentic GraphRAG over Neo4j with a ReAct loop driven by Ollama.
 Tools are derived from `evaluation.tool_catalog.TOOL_CATALOG` so the agent's
 runtime tools cannot drift from the ground truth's `expected_tools`.
 
-Two optional ablation components can be toggled at build time:
+One optional ablation component can be toggled at build time:
 
-    build_app(with_planner=True)    # prepend a hop/category hint
     build_app(with_validator=True)  # rule-based grounded-answer check
                                     # with one self-correction retry
 
 Run a single question (CLI):
     python graphrag_qa.py "What threats does the Sumatran orangutan face?"
-    python graphrag_qa.py --planner --validator "..."
+    python graphrag_qa.py --validator "..."
 
 Programmatic entry point used by the evaluation runner:
     from graphrag_qa import build_app, ask
-    app = build_app(with_planner=True, with_validator=True)
+    app = build_app(with_validator=True)
     result = ask(app, "...question...")
     # result -> {"answer": str, "tool_calls": [...], "messages": [...],
-    #            "plan": Plan|None, "validation": [...]}
+    #            "validation": [...], "retry_count": int}
 """
 from __future__ import annotations
 
 import os
-import sys
-from typing import Annotated, Any, Callable
+from typing import Annotated, Any
 
 from dotenv import find_dotenv, load_dotenv
 from pydantic import BaseModel, Field
@@ -53,7 +51,6 @@ from langgraph.graph import StateGraph, START, END  # noqa: E402
 from langgraph.graph.message import add_messages   # noqa: E402
 from langgraph.prebuilt import ToolNode, tools_condition  # noqa: E402
 
-from evaluation.planner import Plan, plan as classify_plan  # noqa: E402
 from evaluation.tool_catalog import TOOL_CATALOG   # noqa: E402
 from evaluation.validator import (                 # noqa: E402
     ValidationResult,
@@ -92,10 +89,13 @@ SYSTEM_PROMPT = SystemMessage(
 # --------------------------------------------------------------------------- #
 class AgentState(BaseModel):
     messages: Annotated[list[AnyMessage], add_messages] = Field(default_factory=list)
-    # Planner / validator metadata (None when their nodes are disabled).
-    plan: Plan | None = None
+    # Validator metadata (None when the validator node is disabled).
     validation: ValidationResult | None = None
     retry_count: int = 0
+    # Set by the validator when it has decided (and budgeted) a retry.
+    # Read by the post-validate conditional edge to route back to the
+    # agent. Reset to False after the routing decision is made.
+    pending_retry: bool = False
     question: str = ""
 
     model_config = {"arbitrary_types_allowed": True}
@@ -167,7 +167,6 @@ def build_app(
     graph: Neo4jGraph | None = None,
     llm: ChatOllama | None = None,
     *,
-    with_planner: bool = False,
     with_validator: bool = False,
     max_validation_retries: int = 1,
 ) -> Any:
@@ -177,9 +176,6 @@ def build_app(
     ----------
     graph, llm
         Injectable for testing. Production callers can leave them None.
-    with_planner
-        If True, prepend a planner node that classifies the question's
-        hop/category and injects a SystemMessage hint before the agent runs.
     with_validator
         If True, append a rule-based validator node after each agent turn.
         On violation, the validator routes back to the agent with up to
@@ -197,27 +193,11 @@ def build_app(
     tools = build_tools(graph)
     llm_with_tools = llm.bind_tools(tools)
 
-    # ---- planner node ----------------------------------------------------- #
-    def planner_node(state: AgentState) -> dict:
-        question = state.question or ""
-        # First HumanMessage backs out the question if it wasn't passed in.
-        if not question:
-            for m in state.messages:
-                if isinstance(m, HumanMessage):
-                    question = m.content if isinstance(m.content, str) else str(m.content)
-                    break
-        p = classify_plan(question, llm_fallback=llm)
-        hint_msg = SystemMessage(
-            content=f"Planner hint ({p.backend}, {p.hop}-hop, "
-                    f"category={p.category}): {p.hint}"
-        )
-        return {"plan": p, "messages": [hint_msg], "question": question}
-
     # ---- agent node ------------------------------------------------------- #
     def call_model(state: AgentState) -> dict:
         messages = state.messages
         if not any(isinstance(m, SystemMessage) for m in messages):
-            messages = [SYSTEM_PROMPT] + messages
+            messages = [SYSTEM_PROMPT] + list(messages)
         response = llm_with_tools.invoke(messages)
         return {"messages": [response]}
 
@@ -226,12 +206,14 @@ def build_app(
         # Most recent AIMessage is the candidate answer.
         ai_msgs = [m for m in state.messages if isinstance(m, AIMessage)]
         if not ai_msgs:
-            return {"validation": ValidationResult(violations=[])}
+            return {"validation": ValidationResult(violations=[]),
+                    "pending_retry": False}
         final = ai_msgs[-1]
         # If the agent is requesting more tools, defer validation —
         # tools_condition routes back to "tools" before this node runs.
         if final.tool_calls:
-            return {"validation": ValidationResult(violations=[])}
+            return {"validation": ValidationResult(violations=[]),
+                    "pending_retry": False}
 
         answer = final.content if isinstance(final.content, str) else str(final.content)
 
@@ -239,31 +221,28 @@ def build_app(
         tool_calls = _extract_tool_calls(state.messages)
         result = validate_answer(answer, tool_calls, question=state.question)
 
-        out: dict[str, Any] = {"validation": result}
+        out: dict[str, Any] = {"validation": result, "pending_retry": False}
         if not result.ok and state.retry_count < max_validation_retries:
-            out["messages"] = [SystemMessage(content=violations_message(result.violations))]
+            # Use a HumanMessage rather than a SystemMessage so the chat
+            # template sees a normal user-turn follow-up. Ollama's
+            # tool-calling routing in llama3.1 is sensitive to multiple
+            # system messages and can return empty completions when one
+            # appears after the user message.
+            out["messages"] = [HumanMessage(content=violations_message(result.violations))]
             out["retry_count"] = state.retry_count + 1
+            out["pending_retry"] = True
         return out
 
     def _from_validate(state: AgentState) -> str:
-        v = state.validation
-        # Stop if no violations OR we've already used our retry budget.
-        if v is None or v.ok:
-            return END
-        if state.retry_count >= max_validation_retries:
-            return END
-        return "agent"
+        # The validator already enforced the budget when it set
+        # pending_retry. We just route on that flag.
+        return "agent" if state.pending_retry else END
 
     # ---- assemble the graph ---------------------------------------------- #
     workflow = StateGraph(AgentState)
     workflow.add_node("agent", call_model)
     workflow.add_node("tools", ToolNode(tools))
-    if with_planner:
-        workflow.add_node("planner", planner_node)
-        workflow.add_edge(START, "planner")
-        workflow.add_edge("planner", "agent")
-    else:
-        workflow.add_edge(START, "agent")
+    workflow.add_edge(START, "agent")
 
     if with_validator:
         workflow.add_node("validate", validate_node)
@@ -294,9 +273,12 @@ def _extract_tool_calls(messages: list[AnyMessage]) -> list[dict]:
     for m in messages:
         if isinstance(m, AIMessage):
             for tc in m.tool_calls or []:
-                pending[tc["id"]] = {"name": tc["name"],
-                                     "args": tc.get("args", {}),
-                                     "output": None}
+                tid = tc.get("id")
+                if tid is None:
+                    continue
+                pending[tid] = {"name": tc["name"],
+                                "args": tc.get("args", {}),
+                                "output": None}
         elif isinstance(m, ToolMessage):
             entry = pending.pop(m.tool_call_id, None)
             if entry is not None:
@@ -317,7 +299,6 @@ def ask(app: Any, question: str) -> dict:
         answer:     final assistant answer (str)
         tool_calls: list of {name, args, output}
         messages:   raw message history
-        plan:       Plan instance or None (only present if planner was on)
         validation: list[str] of rule violations on the FINAL answer (post-retry)
         retry_count: how many self-correction passes were triggered
     """
@@ -328,14 +309,14 @@ def ask(app: Any, question: str) -> dict:
     tool_calls = _extract_tool_calls(messages)
 
     # The agent's last AIMessage is the answer. The validator may append a
-    # SystemMessage after it (a nag for the next iteration); skip those.
+    # follow-up HumanMessage between turns; iterating in reverse picks the
+    # most recent AIMessage regardless.
     final_msg = next(
         (m for m in reversed(messages) if isinstance(m, AIMessage)),
         messages[-1],
     )
     answer = final_msg.content if hasattr(final_msg, "content") else str(final_msg)
 
-    plan_obj = final_state.get("plan")
     validation = final_state.get("validation")
     retry_count = final_state.get("retry_count", 0)
 
@@ -343,7 +324,6 @@ def ask(app: Any, question: str) -> dict:
         "answer": answer,
         "tool_calls": tool_calls,
         "messages": messages,
-        "plan": plan_obj,
         "validation": list(validation.violations) if validation else [],
         "retry_count": retry_count,
     }
@@ -358,8 +338,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("question", nargs="*",
                         help="Question to ask. Defaults to a multi-hop probe.")
-    parser.add_argument("--planner", action="store_true",
-                        help="Enable the hop/category planner node.")
     parser.add_argument("--validator", action="store_true",
                         help="Enable the rule-based validator node.")
     args = parser.parse_args()
@@ -368,7 +346,6 @@ if __name__ == "__main__":
     print(f"  Neo4j:      {NEO4J_URI}")
     print(f"  Ollama:     {OLLAMA_MODEL} @ {OLLAMA_BASE_URL}")
     print(f"  Tools:      {len(TOOL_CATALOG)} ({', '.join(TOOL_CATALOG)})")
-    print(f"  Planner:    {'on' if args.planner else 'off'}")
     print(f"  Validator:  {'on' if args.validator else 'off'}")
     print()
 
@@ -380,15 +357,8 @@ if __name__ == "__main__":
     )
     print(f"User: {question}\n")
 
-    app = build_app(with_planner=args.planner, with_validator=args.validator)
+    app = build_app(with_validator=args.validator)
     result = ask(app, question)
-
-    if result["plan"]:
-        p = result["plan"]
-        print(f"─── plan ─── ({p.backend})")
-        print(f"  hop={p.hop} category={p.category}")
-        print(f"  hint: {p.hint}")
-        print()
 
     print("─── tool calls ───")
     for tc in result["tool_calls"]:

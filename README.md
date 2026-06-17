@@ -31,33 +31,31 @@ The project is organised so each deliverable maps to a clearly named file:
                                          ▼
    ┌────────────┐       ┌──────────────────────────────────────────┐
    │ User       │──────▶│              ReAct Agent                 │
-   │ question   │       │  (LangGraph, evaluation/planner.py,      │
-   └────────────┘       │   evaluation/validator.py)               │
-                        │                                          │
-                        │   ┌──────────┐   ┌──────────────┐         │
-                        │   │ Planner  │──▶│ LLM (Ollama) │         │
-                        │   │ (regex)  │   │  llama3.1:8b │         │
-                        │   └──────────┘   └──────┬───────┘         │
-                        │                         │                 │
-                        │              tool_calls │ AIMessage       │
-                        │                         ▼                 │
-                        │             ┌─────────────────────┐       │
-                        │             │  18 Cypher tools    │       │
-                        │             │  (TOOL_CATALOG)     │       │
-                        │             └──────────┬──────────┘       │
-                        │                        │                  │
-                        │                        ▼                  │
-                        │             ┌─────────────────────┐       │
-                        │             │      Neo4j 5.25     │       │
-                        │             │ (Species/Habitat/   │       │
-                        │             │  Threat/Action)     │       │
-                        │             └──────────┬──────────┘       │
-                        │                        │                  │
-                        │             ┌──────────▼──────────┐       │
-                        │             │  Rule-based         │       │
-                        │             │  Validator          │       │
-                        │             │  (1 retry)          │       │
-                        │             └─────────────────────┘       │
+   │ question   │       │  (LangGraph, evaluation/validator.py)    │
+   └────────────┘       │                                          │
+                        │   ┌──────────────┐                       │
+                        │   │ LLM (Ollama) │                       │
+                        │   │  llama3.1:8b │                       │
+                        │   └──────┬───────┘                       │
+                        │          │ tool_calls / AIMessage         │
+                        │          ▼                                │
+                        │   ┌─────────────────────┐                 │
+                        │   │  18 Cypher tools    │                 │
+                        │   │  (TOOL_CATALOG)     │                 │
+                        │   └──────────┬──────────┘                 │
+                        │              │                            │
+                        │              ▼                            │
+                        │   ┌─────────────────────┐                 │
+                        │   │      Neo4j 5.25     │                 │
+                        │   │ (Species/Habitat/   │                 │
+                        │   │  Threat/Action)     │                 │
+                        │   └──────────┬──────────┘                 │
+                        │              ▼                            │
+                        │   ┌─────────────────────┐                 │
+                        │   │  Rule-based         │                 │
+                        │   │  Validator          │                 │
+                        │   │  (1 retry)          │                 │
+                        │   └─────────────────────┘                 │
                         └──────────────────────────────────────────┘
                                          │
                                          ▼
@@ -81,14 +79,13 @@ directly on GitHub.
 | `data/species.json` | Source dataset — 46 endangered species scraped from WWF. |
 | `docker-compose.yml` | Neo4j 5.25 community + APOC, healthcheck, mem-tuned. |
 | `ingestion.py` | UPSERT species → Neo4j with constraints + bidirectional `SHARES_HABITAT_WITH`. |
-| `graphrag_qa.py` | LangGraph ReAct app: `START → [planner] → agent ↔ tools → [validate] → END`. |
+| `graphrag_qa.py` | LangGraph ReAct app: `START → agent ↔ tools → [validate] → END`. |
 | `evaluation/tool_catalog.py` | 18 parametric Cypher tools; **single source of truth** for the agent and the gold dataset. |
 | `evaluation/build_ground_truth.py` | Generates `ground_truth.json` directly from `species.json`. |
-| `evaluation/planner.py` | Regex-first hop/category planner (LLM fallback). |
 | `evaluation/validator.py` | Three-rule grounded-answer validator (pure Python). |
 | `evaluation/metrics.py` | Pure-function metric implementations (recall@k, faithfulness, etc.). |
 | `evaluation/runner.py` | End-to-end evaluator with two modes: `--gold-tools`, `--with-agent`. |
-| `evaluation/run_ablation.py` | Drives all four ablation conditions and emits a comparison table. |
+| `evaluation/run_ablation.py` | Drives the two ablation conditions (base / validator) and emits a comparison table. |
 | `check_connectivity.py` | Preflight: env, Neo4j, Ollama, schema, model presence, chat round-trip. |
 
 ---
@@ -171,9 +168,9 @@ python -m evaluation.runner --with-agent
 
 :: 5. (Optional) Ask one question interactively
 python graphrag_qa.py "What threats does the Sumatran orangutan face?"
-python graphrag_qa.py --planner --validator "Which species share a habitat with the Sumatran orangutan?"
+python graphrag_qa.py --validator "Which species share a habitat with the Sumatran orangutan?"
 
-:: 6. (Optional) Run the four-way ablation study
+:: 6. (Optional) Run the two-way ablation study (base vs. validator)
 python -m evaluation.run_ablation
 ```
 
@@ -200,10 +197,9 @@ version:
 * The LangGraph ReAct loop in `graphrag_qa.py` exposes those 18 tools to
   the LLM. The LLM picks a tool per turn, observes the result, and either
   calls another tool or emits a final answer.
-* Two optional ablation components: a regex-first **planner** that injects
-  a hop/category hint, and a rule-based **validator** that checks whether
-  every entity in the answer was actually returned by a tool — re-prompting
-  the agent on violation (1-retry cap).
+* One optional ablation component: a rule-based **validator** that
+  checks whether every entity in the answer was actually returned by a
+  tool, re-prompting the agent on violation (1-retry cap).
 
 ---
 
@@ -217,7 +213,7 @@ grader can find each artefact:
 | (a) DB connection | `01_neo4j_connection.png` | `python check_connectivity.py` showing all-PASS, OR Neo4j Browser at `http://localhost:7474` after login. |
 | (b) Query/graph builder | `02_neo4j_graph.png` | Neo4j Browser running `MATCH (s:Species)-[:LIVES_IN]->(h:Habitat) RETURN s,h LIMIT 25;` |
 | (c) Analysis output | `03_evaluation_summary.png` | Terminal output of `python -m evaluation.runner --with-agent` showing the metric digest. |
-| (d) LLM/RAG/Cypher demo | `04_agent_demo.png` | `python graphrag_qa.py --planner --validator "..."` showing the planner hint, tool calls, and final answer. |
+| (d) LLM/RAG/Cypher demo | `04_agent_demo.png` | `python graphrag_qa.py --validator "..."` showing the tool calls, validator output, and final answer. |
 
 A `docs/screenshots/README.md` lists the same checklist so screenshots can
 be dropped in by name.

@@ -56,15 +56,15 @@ console output as `04_ablation_table.png` (optional bonus).
 
 ## (d) LLM / RAG / Cypher demo — `04_agent_demo.png`
 
-A single end-to-end CLI run that shows the planner hint, the tool calls,
-and the final answer:
+A single end-to-end CLI run that shows the tool calls and the final
+answer (the validator output if any rules trigger):
 
 ```cmd
-python graphrag_qa.py --planner --validator "Which species share a habitat with the Sumatran orangutan and are threatened by habitat loss?"
+python graphrag_qa.py --validator "Which species share a habitat with the Sumatran orangutan and are threatened by habitat loss?"
 ```
 
-Capture the full console output (planner block → tool calls list →
-final answer).
+Capture the full console output (tool calls list → optional validator
+block → final answer).
 
 ## Optional architecture diagram
 

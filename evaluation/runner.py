@@ -92,15 +92,6 @@ def evaluate_item(item: dict,
         alternatives=item.get("alternative_tools"),
     )
 
-    # Planner / validator metrics (default to absent flags when disabled).
-    plan_obj = trace.get("plan")
-    plan_hop_match = plan_cat_match = None
-    plan_backend = None
-    if plan_obj is not None:
-        plan_hop_match = 1.0 if plan_obj.hop == item["hop"] else 0.0
-        plan_cat_match = 1.0 if plan_obj.category == item["category"] else 0.0
-        plan_backend = plan_obj.backend
-
     validation_violations = trace.get("validation") or []
     retry_count = trace.get("retry_count", 0) or 0
     validator_fired = 1.0 if (validation_violations or retry_count > 0) else 0.0
@@ -122,12 +113,9 @@ def evaluate_item(item: dict,
         "tokens_output":       tokens["output"],
         "tokens_total":        tokens["total"],
         "cost_usd":            cost,
+        "validator_fired":     validator_fired,
+        "validator_retried":   validator_retried,
     }
-    if plan_obj is not None:
-        record_metrics["plan_hop_match"] = plan_hop_match
-        record_metrics["plan_category_match"] = plan_cat_match
-    record_metrics["validator_fired"]   = validator_fired
-    record_metrics["validator_retried"] = validator_retried
 
     return {
         "id":        item["id"],
@@ -143,11 +131,6 @@ def evaluate_item(item: dict,
         ],
         "expected_tool_names": [t["name"] for t in item["expected_tools"]],
         "predicted_tool_names": [c["name"] for c in tool_calls],
-        "plan": (
-            {"hop": plan_obj.hop, "category": plan_obj.category,
-             "backend": plan_backend, "hint": plan_obj.hint}
-            if plan_obj is not None else None
-        ),
         "validation_violations": validation_violations,
         "retry_count": retry_count,
         "metrics": record_metrics,
@@ -159,11 +142,10 @@ def evaluate_item(item: dict,
 # --------------------------------------------------------------------------- #
 def _run_agent(items: list[dict], k: int,
                price_in_per_1k: float, price_out_per_1k: float,
-               *, with_planner: bool = False,
-               with_validator: bool = False) -> list[dict]:
+               *, with_validator: bool = False) -> list[dict]:
     """Mode: drive the real LangGraph agent."""
     from graphrag_qa import build_app, ask  # imported lazily to avoid Neo4j on dry runs
-    app = build_app(with_planner=with_planner, with_validator=with_validator)
+    app = build_app(with_validator=with_validator)
     out: list[dict] = []
     for i, item in enumerate(items, 1):
         print(f"[{i}/{len(items)}] {item['id']}: {item['question']}")
@@ -173,8 +155,7 @@ def _run_agent(items: list[dict], k: int,
         except Exception as exc:  # surface the failure but keep going
             print(f"   ! agent error: {exc}")
             trace = {"answer": f"<agent error: {exc}>", "tool_calls": [],
-                     "messages": [], "plan": None, "validation": [],
-                     "retry_count": 0}
+                     "messages": [], "validation": [], "retry_count": 0}
         latency = time.perf_counter() - t0
         out.append(evaluate_item(
             item, trace,
@@ -240,7 +221,7 @@ _NUMERIC_FIELDS = (
 
 def _aggregate(results: list[dict], k: int) -> dict:
     # Take the union of metric keys across all rows so optional fields
-    # (plan_*) are included only when present.
+    # (validator metrics) are included only when present.
     fields = sorted({key for r in results for key in r["metrics"]})
 
     def _bucket(rows: list[dict]) -> dict:
@@ -337,14 +318,12 @@ def main() -> int:
                    help="USD per 1k input tokens (default 0 for local Ollama).")
     p.add_argument("--price-out", type=float, default=0.0,
                    help="USD per 1k output tokens (default 0 for local Ollama).")
-    p.add_argument("--planner", action="store_true",
-                   help="Enable the planner node (only used with --with-agent).")
     p.add_argument("--validator", action="store_true",
                    help="Enable the validator node (only used with --with-agent).")
-    p.add_argument("--ablation", choices=["base", "planner", "validator", "both"],
+    p.add_argument("--ablation", choices=["base", "validator"],
                    default=None,
                    help="Convenience preset for ablation runs. Overrides "
-                        "--planner/--validator if set.")
+                        "--validator if set.")
     p.add_argument("--out", type=Path, default=None,
                    help="Override the run output directory.")
     args = p.parse_args()
@@ -368,12 +347,11 @@ def main() -> int:
         return 2
 
     if args.ablation:
-        args.planner   = args.ablation in ("planner", "both")
-        args.validator = args.ablation in ("validator", "both")
+        args.validator = args.ablation == "validator"
 
     mode_label = "with-agent" if args.with_agent else "gold-tools"
     if args.with_agent:
-        mode_label += f"-{args.ablation or ('p' if args.planner else '') + ('v' if args.validator else '') or 'base'}"
+        mode_label += f"-{args.ablation or ('validator' if args.validator else 'base')}"
     run_dir = args.out or (RUNS_DIR / f"{datetime.now():%Y%m%d-%H%M%S}-{mode_label}")
     run_dir.mkdir(parents=True, exist_ok=True)
 
@@ -381,14 +359,12 @@ def main() -> int:
     print(f"Items:     {len(items)} / {gt['counts']['total']}")
     print(f"Run dir:   {run_dir.relative_to(ROOT)}")
     if args.with_agent:
-        print(f"Planner:   {'on' if args.planner else 'off'}")
         print(f"Validator: {'on' if args.validator else 'off'}")
     print()
 
     t0 = time.perf_counter()
     if args.with_agent:
         results = _run_agent(items, args.k, args.price_in, args.price_out,
-                             with_planner=args.planner,
                              with_validator=args.validator)
     else:
         results = _run_gold_tools(items, args.k)

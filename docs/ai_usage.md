@@ -39,7 +39,9 @@ produced or modified files.
 11. *"Since I apply a ReAct agent here, is it valid to call this project
     'agentic GraphRAG'? — discussion only."*
 12. *"Implement my recommended scenarios for the ablation study"*
-    (planner + rule-based validator).
+    (planner + rule-based validator). The planner was later dropped
+    after the first run revealed it broke tool-calling on `llama3.1:8B`
+    (see §4 below).
 13. *"My deliverables should be …"* (this README + `docs/` folder).
 
 The full conversation transcript is preserved in the IDE's session log.
@@ -52,15 +54,14 @@ The full conversation transcript is preserved in the IDE's session log.
 | `data_pipeline.py` (legacy, deleted) | ✅ | ✅ Removed by the author. |
 | `docker-compose.yml` | ✅ initial draft | ✅ author flagged the empty `NEO4J_AUTH`, stale mount, and Swarm-only `deploy:`; AI rewrote with fixes verified by `docker compose config`. |
 | `ingestion.py` | ✅ (AI rewrote bug-fixed version) | ✅ Author specified bidirectional `SHARES_HABITAT_WITH` requirement. |
-| `graphrag_qa.py` | ✅ (LangGraph wiring, planner/validator integration) | ✅ Author chose ReAct + parametric tools, decided against text-to-Cypher. |
+| `graphrag_qa.py` | ✅ (LangGraph wiring, validator integration) | ✅ Author chose ReAct + parametric tools, decided against text-to-Cypher. Author removed the planner node after empirical testing. |
 | `evaluation/tool_catalog.py` | ✅ | ✅ Author defined the schema and tool taxonomy first; AI translated to Cypher templates. |
 | `evaluation/build_ground_truth.py` | ✅ | ✅ Author specified 18 single-hop + 12 multi-hop split, chose categories. |
 | `evaluation/ground_truth.json` | generator output | reviewed by author |
 | `evaluation/metrics.py` | ✅ | ✅ Author flagged metric semantics (e.g., recall@k uses `gold_answer`, not `gold_entities`); AI corrected. |
 | `evaluation/runner.py` | ✅ | ✅ Author requested two run modes (`--gold-tools`, `--with-agent`). |
-| `evaluation/planner.py` | ✅ | ✅ Author chose regex-first approach over LLM-only. |
 | `evaluation/validator.py` | ✅ | ✅ Author chose rule-based over LLM-critic. |
-| `evaluation/run_ablation.py` | ✅ | ✅ Author specified the four ablation conditions. |
+| `evaluation/run_ablation.py` | ✅ | ✅ Author specified the ablation conditions; reduced to base/validator after planner was dropped. |
 | `check_connectivity.py` | ✅ | ✅ Author requested per-component checks with actionable error messages. |
 | `requirements.txt` | ✅ | ✅ Author asked for pinned versions. |
 | `.gitignore`, `.env.example` | ✅ | reviewed |
@@ -74,8 +75,12 @@ These were *human* decisions, taken after AI raised options:
   Justification: a 7–9B local model (llama3.1) makes text-to-Cypher
   expensive and accuracy-poor; parametric tools give deterministic
   execution traces for the evaluation metrics.
-* **Use a regex-first planner.** Tested: regex matches 30/30 of the
-  ground-truth questions; LLM fallback exists only for robustness.
+* **Drop the planner node after empirical testing.** Initial ablation
+  runs showed that prepending a hop/category hint as a second
+  `SystemMessage` caused `llama3.1:8B` (with bound tools) to skip
+  tool-calling and emit a one-token answer. Even when the planner hint
+  was merged into the leading system prompt, the lift wasn't worth the
+  added complexity. Removed.
 * **Use a rule-based validator instead of an LLM critic.** Pure-Python
   rules are free and don't require another model call; cap retries at
   1 to bound latency.

@@ -26,11 +26,10 @@ flowchart TB
     subgraph AGENT["Agent - LangGraph ReAct"]
         direction TB
         Q["User question"]
-        PLAN["Planner node<br/>regex first, LLM fallback"]:::optional
         LLM["Agent node<br/>ChatOllama llama3.1 8B<br/>+ 18 bound tools"]
         TOOLS["ToolNode<br/>parametric Cypher"]
         VAL["Validator node<br/>3 rules, max 1 retry"]:::optional
-        Q --> PLAN --> LLM
+        Q --> LLM
         LLM <-->|tool calls / ToolMessage| TOOLS
         LLM --> VAL
         VAL -->|violations| LLM
@@ -55,13 +54,11 @@ flowchart TB
 
 ## 2. LangGraph state machine
 
-Exact compiled topology of `graphrag_qa.build_app(with_planner=True,
-with_validator=True)`.
+Exact compiled topology of `graphrag_qa.build_app(with_validator=True)`.
 
 ```mermaid
 stateDiagram-v2
-    [*] --> planner
-    planner --> agent: SystemMessage hint
+    [*] --> agent
     agent --> tools: tool_calls present
     tools --> agent: ToolMessage outputs
     agent --> validate: final answer
@@ -69,7 +66,6 @@ stateDiagram-v2
     validate --> agent: violations and retries left
 ```
 
-When the planner is disabled the entry edge becomes `[*] --> agent`.
 When the validator is disabled the `agent --> validate` edge collapses
 to `agent --> [*]`.
 
@@ -103,14 +99,12 @@ Sumatran orangutan and are threatened by habitat loss?"*
 sequenceDiagram
     autonumber
     participant U as User
-    participant P as Planner
     participant L as LLM
     participant T as ToolNode
     participant N as Neo4j
     participant V as Validator
 
-    U->>P: question
-    P->>L: hint - multi-hop, neighbours_by_threat
+    U->>L: question
     L->>T: get_neighbors_by_threat<br/>species_name=Sumatran orangutan,<br/>threat_keyword=habitat loss
     T->>N: MATCH ...SHARES_HABITAT_WITH...<br/>WHERE toLower contains keyword
     N-->>T: rows
@@ -122,15 +116,13 @@ sequenceDiagram
 
 ## 5. Evaluation ablation matrix
 
-The four conditions exercised by `evaluation/run_ablation.py`.
+The two conditions exercised by `evaluation/run_ablation.py`.
 
 ```mermaid
 flowchart LR
     subgraph Conditions
         B["Base ReAct<br/>+ 18 tools"]
-        P["+ Planner"]
         V["+ Validator"]
-        BV["+ Both"]
     end
     Conditions --> R["evaluation/run_ablation.py"]
     R --> M["ablation_summary.md<br/>side-by-side metric table"]

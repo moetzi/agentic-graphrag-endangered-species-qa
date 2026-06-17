@@ -1,16 +1,14 @@
 """
-Run the four ablation conditions sequentially and emit a comparison table.
+Run the two ablation conditions sequentially and emit a comparison table.
 
 Conditions:
-    base      - ReAct over parametric Cypher tools (current)
-    planner   - + regex/LLM planner that injects a hop/category hint
-    validator - + rule-based grounded-answer validator (1 retry)
-    both      - planner + validator
+    base       - ReAct over parametric Cypher tools (current default)
+    validator  - + rule-based grounded-answer validator (1 retry)
 
 Usage:
     python -m evaluation.run_ablation
     python -m evaluation.run_ablation --limit 5
-    python -m evaluation.run_ablation --conditions base both
+    python -m evaluation.run_ablation --conditions base validator
 
 Outputs:
     evaluation/runs/<ts>-ablation/
@@ -32,10 +30,8 @@ from evaluation.runner import (
 )
 
 CONDITIONS = {
-    "base":      dict(with_planner=False, with_validator=False),
-    "planner":   dict(with_planner=True,  with_validator=False),
-    "validator": dict(with_planner=False, with_validator=True),
-    "both":      dict(with_planner=True,  with_validator=True),
+    "base":      dict(with_validator=False),
+    "validator": dict(with_validator=True),
 }
 
 
@@ -54,7 +50,7 @@ def main() -> int:
     p = argparse.ArgumentParser()
     p.add_argument("--conditions", nargs="*",
                    choices=list(CONDITIONS), default=list(CONDITIONS),
-                   help="Subset of conditions to run (default: all four).")
+                   help="Subset of conditions to run (default: both).")
     p.add_argument("--k", type=int, default=10)
     p.add_argument("--limit", type=int, default=None)
     p.add_argument("--ids", nargs="*", default=None)
@@ -100,7 +96,6 @@ def main() -> int:
     cols = ["condition", "answer_correctness", "faithfulness",
             "hallucination_rate", f"recall_at_{args.k}",
             f"precision_at_{args.k}", "tool_exact_sequence", "tool_set_match",
-            "plan_hop_match", "plan_category_match",
             "validator_fired", "validator_retried",
             "latency_seconds", "tokens_total", "wall_seconds"]
     rows = []

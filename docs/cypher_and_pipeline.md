@@ -134,13 +134,6 @@ Cypher. This buys three things:
 question
    │
    ▼
-(planner — optional)
-   │   Regex over question text → {hop, category, hint}.
-   │   Hint becomes a SystemMessage prepended to the agent context.
-   │   Falls back to a single LLM classification call only if no regex
-   │   matches; on this ground truth the regex hits 30/30.
-   │
-   ▼
 (agent: ChatOllama(llama3.1) bound to the 18 tools)
    │   ReAct: reason → choose tool → observe → repeat → final answer.
    │
@@ -156,12 +149,18 @@ question
    │   (a) "answer makes factual claim but no tool was called"
    │   (b) "proper-noun phrase in answer not in retrieved tool outputs"
    │   (c) "number in answer not present in any retrieved value"
-   │   On violation: prepend a SystemMessage describing the violations
+   │   On violation: append a HumanMessage describing the violations
    │   and route back to the agent (max 1 retry).
    │
    ▼
 final answer + tool-call trace
 ```
+
+> **Earlier iteration:** an optional planner node prepended a regex- or
+> LLM-derived hop+category hint. On `llama3.1:8B` with bound tools, that
+> second `SystemMessage` after the user turn caused the model to skip
+> tool-calling entirely and emit a one-token reply. The component was
+> removed; the validator stayed because it works.
 
 ## 5. Why ReAct, not a fixed pipeline
 

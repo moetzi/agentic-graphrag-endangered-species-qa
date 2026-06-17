@@ -128,11 +128,10 @@ evaluation/runs/<timestamp>-<mode>/
 
 ## Ablation study
 
-Two optional components can be toggled around the ReAct core:
+One optional component is toggled around the ReAct core:
 
 | Component   | What it does                                                                              | Cost                          |
 |-------------|--------------------------------------------------------------------------------------------|-------------------------------|
-| Planner     | Classifies the question's hop & category (regex-first, LLM fallback) and injects a hint.  | 0 tokens (regex) / ~80 tokens (LLM fallback). |
 | Validator   | Runs three rules over the agent's answer; on violation, asks the agent to revise (1 retry max). | 0 tokens (rules) / one extra LLM call only when a violation fires. |
 
 Run conditions individually:
@@ -141,32 +140,31 @@ Run conditions individually:
 :: Base (just ReAct)
 python -m evaluation.runner --with-agent --ablation base
 
-:: + planner
-python -m evaluation.runner --with-agent --ablation planner
-
 :: + validator
 python -m evaluation.runner --with-agent --ablation validator
-
-:: + both
-python -m evaluation.runner --with-agent --ablation both
 ```
 
-…or run all four in one shot and emit a comparison table:
+…or run both in one shot and emit a comparison table:
 
 ```cmd
 python -m evaluation.run_ablation
 python -m evaluation.run_ablation --limit 5
-python -m evaluation.run_ablation --conditions base both
+python -m evaluation.run_ablation --conditions base
 ```
 
 The ablation runner writes a per-condition subdirectory plus an
 `ablation_summary.md` with a side-by-side metric comparison.
 
-### New metrics introduced by the ablation components
+> **Why no planner?** An earlier iteration tried prepending a regex/LLM
+> hop+category hint as an extra `SystemMessage`. On `llama3.1:8B` with
+> bound tools, that second system message after the user turn caused the
+> model to skip tool-calling entirely and emit a one-token reply. The
+> planner code was removed; if a future model handles multi-system
+> contexts well, see commit history for the previous implementation.
+
+### Validator metrics
 
 | Metric                | Source                                                                  |
 |-----------------------|--------------------------------------------------------------------------|
-| `plan_hop_match`      | 1 if the planner's `hop` matches the gold item's `hop`, else 0.        |
-| `plan_category_match` | 1 if the planner's `category` matches the gold item's `category`, else 0. |
 | `validator_fired`     | 1 if the validator detected at least one violation on the first pass. |
 | `validator_retried`   | 1 if the validator triggered the self-correction retry.                |

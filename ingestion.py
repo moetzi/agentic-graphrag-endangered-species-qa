@@ -23,6 +23,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv, find_dotenv
 from neo4j import GraphDatabase
+from typing import cast, LiteralString
 
 load_dotenv(find_dotenv())
 
@@ -111,7 +112,9 @@ def ingest_species_data(data_file: Path = DATA_FILE) -> dict:
         with driver.session() as session:
             # Constraints first — much faster MERGE afterwards.
             for stmt in CONSTRAINTS:
-                session.run(stmt)
+                # type-checker: session.run expects a LiteralString | Query;
+                # cast the runtime str to LiteralString for correctness.
+                session.run(cast(LiteralString, stmt))
 
             # Pass 1: species + habitats/threats/actions
             for entry in species_list:
@@ -145,7 +148,7 @@ def ingest_species_data(data_file: Path = DATA_FILE) -> dict:
                 for n in unresolved:
                     skipped_neighbors.append((entry["species"], n))
 
-            counts = session.run(
+            result = session.run(
                 """
                 CALL {
                     MATCH (s:Species)             RETURN count(s) AS species
@@ -164,14 +167,15 @@ def ingest_species_data(data_file: Path = DATA_FILE) -> dict:
                 }
                 RETURN species, habitats, threats, actions, shares_rel
                 """
-            ).single()
+            )
+            counts = result.single() or {}
 
         summary = {
-            "species":             counts["species"],
-            "habitats":            counts["habitats"],
-            "threats":             counts["threats"],
-            "actions":             counts["actions"],
-            "shares_habitat_rels": counts["shares_rel"],   # 2x edges (bidir)
+            "species":             counts.get("species", 0),
+            "habitats":            counts.get("habitats", 0),
+            "threats":             counts.get("threats", 0),
+            "actions":             counts.get("actions", 0),
+            "shares_habitat_rels": counts.get("shares_rel", 0),   # 2x edges (bidir)
             "shares_pairs_added":  shares_edges,
             "skipped_neighbors":   skipped_neighbors,
         }

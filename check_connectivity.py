@@ -91,8 +91,8 @@ def check_env() -> str:
         raise RuntimeError(f"missing env vars: {missing}")
     # Optional but recommended
     optional = {
-        "OLLAMA_MODEL":    os.getenv("OLLAMA_MODEL", "llama3.1"),
-        "OLLAMA_BASE_URL": os.getenv("OLLAMA_BASE_URL", "http://localhost:11434"),
+        "OLLAMA_MODEL":    os.getenv("OLLAMA_MODEL", "llama3.1:8b"),
+        "OLLAMA_BASE_URL": os.getenv("OLLAMA_BASE_URL", "http://localhost:11450"),
     }
     return f"NEO4J_URI={os.getenv('NEO4J_URI')}, model={optional['OLLAMA_MODEL']}"
 
@@ -155,6 +155,9 @@ def check_neo4j_schema() -> str:
                 RETURN species, habitats, threats, actions, shares
                 """
             ).single()
+            # s.run(...).single() can return None (e.g. empty result); coerce to zeros
+            if counts is None:
+                counts = {"species": 0, "habitats": 0, "threats": 0, "actions": 0, "shares": 0}
     finally:
         driver.close()
 
@@ -171,7 +174,7 @@ def check_neo4j_schema() -> str:
 
 def check_ollama_reachable() -> str:
     import ollama
-    base = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
+    base = os.getenv("OLLAMA_BASE_URL", "http://localhost:11450")
     try:
         # ollama.Client.list() returns local models; raises on connection error
         client = ollama.Client(host=base)
@@ -186,8 +189,8 @@ def check_ollama_reachable() -> str:
 
 def check_ollama_model() -> str:
     import ollama
-    base = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
-    wanted = os.getenv("OLLAMA_MODEL", "llama3.1")
+    base = os.getenv("OLLAMA_BASE_URL", "http://localhost:11450")
+    wanted = os.getenv("OLLAMA_MODEL", "llama3.1:8b")
 
     client = ollama.Client(host=base)
     listing = client.list()
@@ -227,14 +230,14 @@ def check_ollama_chat() -> str:
     from langchain_ollama import ChatOllama
     from langchain_core.messages import HumanMessage, SystemMessage
 
-    model = os.getenv("OLLAMA_MODEL", "llama3.1")
-    base = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
+    model = os.getenv("OLLAMA_MODEL", "llama3.1:8b")
+    base = os.getenv("OLLAMA_BASE_URL", "http://localhost:11450")
     llm = ChatOllama(model=model, base_url=base, temperature=0)
     resp = llm.invoke([
         SystemMessage(content="Reply with exactly the word: pong"),
         HumanMessage(content="ping"),
     ])
-    text = (resp.content or "").strip()
+    text = (str(resp.content) if resp.content else "").strip()
     if not text:
         raise RuntimeError("empty response from model")
     snippet = text[:60].replace("\n", " ")
