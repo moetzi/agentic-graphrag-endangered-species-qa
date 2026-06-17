@@ -42,3 +42,8 @@ Thumbs.db
 
 # --- Logs ------------------------------------------------------------------
 *.log
+
+# --- Node (only used ad-hoc for Mermaid validation) -----------------------
+node_modules/
+package.json
+package-lock.json
