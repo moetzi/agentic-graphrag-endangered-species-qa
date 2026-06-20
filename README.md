@@ -1,5 +1,7 @@
 # Endangered Species Agentic GraphRAG QA
 
+**Author:** Mutiara Noor Fauzia — NRP 5026221045
+
 An agentic GraphRAG question-answering system over a Neo4j knowledge graph
 of endangered species scraped from the World Wildlife Fund (WWF) website.
 The agent uses a ReAct loop driven by a local Ollama LLM and 18
@@ -21,56 +23,111 @@ The project is organised so each deliverable maps to a clearly named file:
 
 ## 1. Architecture at a glance
 
-```
-                ┌──────────────────────────────────────────────────────┐
-                │                Ground Truth (evaluation/)            │
-                │   18 single-hop + 12 multi-hop QA pairs              │
-                │   Generated from data/species.json                   │
-                └────────────────────────┬─────────────────────────────┘
-                                         │
-                                         ▼
-   ┌────────────┐       ┌──────────────────────────────────────────┐
-   │ User       │──────▶│              ReAct Agent                 │
-   │ question   │       │  (LangGraph, evaluation/validator.py)    │
-   └────────────┘       │                                          │
-                        │   ┌──────────────┐                       │
-                        │   │ LLM (Ollama) │                       │
-                        │   │  llama3.1:8b │                       │
-                        │   └──────┬───────┘                       │
-                        │          │ tool_calls / AIMessage         │
-                        │          ▼                                │
-                        │   ┌─────────────────────┐                 │
-                        │   │  18 Cypher tools    │                 │
-                        │   │  (TOOL_CATALOG)     │                 │
-                        │   └──────────┬──────────┘                 │
-                        │              │                            │
-                        │              ▼                            │
-                        │   ┌─────────────────────┐                 │
-                        │   │      Neo4j 5.25     │                 │
-                        │   │ (Species/Habitat/   │                 │
-                        │   │  Threat/Action)     │                 │
-                        │   └──────────┬──────────┘                 │
-                        │              ▼                            │
-                        │   ┌─────────────────────┐                 │
-                        │   │  Rule-based         │                 │
-                        │   │  Validator          │                 │
-                        │   │  (1 retry)          │                 │
-                        │   └─────────────────────┘                 │
-                        └──────────────────────────────────────────┘
-                                         │
-                                         ▼
-                        ┌──────────────────────────────────────────┐
-                        │             Evaluator                    │
-                        │   recall@k, precision@k, faithfulness,   │
-                        │   answer correctness, hallucination,     │
-                        │   tool selection, latency, token cost    │
-                        └──────────────────────────────────────────┘
+### System overview
+
+```mermaid
+flowchart TB
+    subgraph DATA["Data layer"]
+        SRC[("data/species.json<br/>46 species scraped from WWF")]
+    end
+
+    subgraph INGEST["Ingestion"]
+        ING["ingestion.py<br/>UPSERT + UNIQUE constraints<br/>+ bidirectional SHARES_HABITAT_WITH"]
+    end
+
+    subgraph STORE["Storage - Docker"]
+        NEO[("Neo4j 5.25 + APOC<br/>Species, Habitat, Threat, ConservationAction")]
+    end
+
+    subgraph AGENT["Agent - LangGraph ReAct"]
+        direction TB
+        Q["User question"]
+        LLM["Agent node<br/>ChatOllama llama3.1 8B<br/>+ 18 bound tools"]
+        TOOLS["ToolNode<br/>parametric Cypher"]
+        VAL["Validator node<br/>3 rules, max 1 retry"]:::optional
+        Q --> LLM
+        LLM <-->|tool calls / ToolMessage| TOOLS
+        LLM --> VAL
+        VAL -->|violations| LLM
+    end
+
+    subgraph EVAL["Evaluation"]
+        GT[("evaluation/ground_truth.json<br/>18 single-hop + 12 multi-hop")]
+        RUN["evaluation/runner.py"]
+        ABL["evaluation/run_ablation.py"]
+        MET["Metrics:<br/>recall@k, precision@k,<br/>faithfulness, hallucination,<br/>tool selection, latency, tokens"]
+    end
+
+    SRC --> ING --> NEO
+    NEO -.Cypher rows.-> TOOLS
+    GT --> RUN --> MET
+    GT --> ABL --> MET
+    AGENT -.answer + tool trace.-> RUN
+    AGENT -.answer + tool trace.-> ABL
+
+    classDef optional stroke-dasharray: 5 5
 ```
 
-A polished version with multiple Mermaid views (system overview,
-LangGraph state machine, schema, tool-call sequence, ablation matrix)
-lives in [`docs/architecture.md`](docs/architecture.md) and renders
-directly on GitHub.
+### LangGraph state machine
+
+```mermaid
+stateDiagram-v2
+    [*] --> agent
+    agent --> tools: tool_calls present
+    tools --> agent: ToolMessage outputs
+    agent --> validate: final answer
+    validate --> [*]: ok or retry budget hit
+    validate --> agent: violations and retries left
+```
+
+### Knowledge graph schema
+
+```mermaid
+flowchart LR
+    S1["Species<br/>name, scientific_name,<br/>status, description,<br/>population, weight"]
+    S2["Species"]
+    H["Habitat<br/>name"]
+    T["Threat<br/>name"]
+    A["ConservationAction<br/>name"]
+
+    S1 -->|LIVES_IN| H
+    S1 -->|THREATENED_BY| T
+    S1 -->|PROTECTED_BY| A
+    S1 <-->|SHARES_HABITAT_WITH| S2
+```
+
+### Tool-call sequence (typical multi-hop request)
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant U as User
+    participant L as LLM
+    participant T as ToolNode
+    participant N as Neo4j
+    participant V as Validator
+
+    U->>L: question
+    L->>T: get_neighbors_by_threat<br/>species_name=Sumatran orangutan,<br/>threat_keyword=habitat loss
+    T->>N: MATCH ...SHARES_HABITAT_WITH...<br/>WHERE toLower contains keyword
+    N-->>T: rows
+    T-->>L: ToolMessage list of species
+    L-->>V: final AIMessage
+    V-->>L: violations if any
+    V-->>U: validated answer
+```
+
+### Evaluation ablation matrix
+
+```mermaid
+flowchart LR
+    subgraph Conditions
+        B["Base ReAct<br/>+ 18 tools"]
+        V["+ Validator"]
+    end
+    Conditions --> R["evaluation/run_ablation.py"]
+    R --> M["ablation_summary.md<br/>side-by-side metric table"]
+```
 
 ## 2. Components
 
@@ -205,18 +262,35 @@ version:
 
 ## 6. Screenshots (deliverable c, d)
 
-Place captures in `docs/screenshots/` using the suggested filenames so the
-grader can find each artefact:
+### (a) Database connection — `01_neo4j_connection.png`
 
-| Deliverable | Suggested filename | What to capture |
-|---|---|---|
-| (a) DB connection | `01_neo4j_connection.png` | `python check_connectivity.py` showing all-PASS, OR Neo4j Browser at `http://localhost:7474` after login. |
-| (b) Query/graph builder | `02_neo4j_graph.png` | Neo4j Browser running `MATCH (s:Species)-[:LIVES_IN]->(h:Habitat) RETURN s,h LIMIT 25;` |
-| (c) Analysis output | `03_evaluation_summary.png` | Terminal output of `python -m evaluation.runner --with-agent` showing the metric digest. |
-| (d) LLM/RAG/Cypher demo | `04_agent_demo.png` | `python graphrag_qa.py --validator "..."` showing the tool calls, validator output, and final answer. |
+![Neo4j connection check — all-PASS output](docs/screenshots/01_neo4j_connection.png)
 
-A `docs/screenshots/README.md` lists the same checklist so screenshots can
-be dropped in by name.
+---
+
+### (b) Query / graph builder result
+
+![Neo4j graph — Species and Habitat subgraph](docs/screenshots/02_neo4j_graph.png)
+
+![Neo4j graph — alternate view](docs/screenshots/02_neo4j_graph1.png)
+
+![Neo4j graph — multi-hop edges](docs/screenshots/02_neo4j_graph3.png)
+
+---
+
+### (c) Evaluation / analysis output
+
+![Evaluation summary — metric digest](docs/screenshots/03_evaluation_summary.png)
+
+![Evaluation summary — extended output](docs/screenshots/03_evaluation_summary1.png)
+
+---
+
+### (d) LLM / RAG / Cypher agent demo
+
+![Agent demo — tool calls and final answer](docs/screenshots/04_agent_demo.png)
+
+![Agent demo — validator output](docs/screenshots/04_agent_demo2.png)
 
 ---
 
