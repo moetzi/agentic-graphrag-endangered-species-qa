@@ -280,9 +280,30 @@ version:
 
 ### (c) Evaluation / analysis output
 
-![Evaluation summary — metric digest](docs/screenshots/03_evaluation_summary.png)
+![Evaluation summary — metric digest](docs/screenshots/03_evaluation_summary1.png)
 
-![Evaluation summary — extended output](docs/screenshots/03_evaluation_summary1.png)
+**Ablation comparison** — 30 items, k = 10
+
+| Condition | Answer Correctness | Faithfulness | Hallucination Rate | Recall@10 | Precision@10 | Tool Exact Seq | Tool Set Match | Validator Fired | Validator Retried | Latency (s) | Tokens Total | Wall (s) |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| base | 0.9532 | 0.7374 | 0.2626 | 0.8728 | 0.87 | 0.90 | 0.90 | 0.0 | 0.0 | 5.07 | 1434.77 | 157.87 |
+| validator | 0.9082 | 0.7432 | 0.2568 | 0.8728 | 0.87 | 0.37 | 0.90 | 0.6 | 0.6 | 6.40 | 2491.80 | 192.79 |
+
+#### Analysis — Validator Over-Correction in a Small Local Model
+
+The ablation reveals a classic **over-correction failure mode** that emerges when a rule-based validator is paired with a small (8 B parameter) local model.
+
+**The validator fires too aggressively.** With `validator_fired = 0.60` and `validator_retried = 0.60`, the three-rule grounding check triggered a retry on 18 out of 30 questions — far more than expected for a model whose base answer correctness is already 0.9532. This signals that the validator's strictness threshold is not well-calibrated for `llama3.1:8b`'s output style.
+
+**Retrying hurts answer quality.** Answer correctness falls from **0.9532 → 0.9082** (−4.7 pp) after adding the validator. The re-prompt forces the model to regenerate its answer under an additional grounding constraint it cannot reliably satisfy at 8 B scale, producing outputs that score lower than the original uncorrected answer.
+
+**Tool order collapses while tool coverage is preserved.** `tool_exact_sequence` drops sharply from **0.90 → 0.37** (−58.9 pp), yet `tool_set_match` stays at **0.90**. This means the model calls the same set of tools during the retry but reorders them unpredictably — the validator changes *when* tools are invoked without changing *which* tools are chosen. Larger models tend to maintain consistent ordering under re-prompting; 8 B models do not.
+
+**Faithfulness and hallucination improve only marginally.** Faithfulness rises by just **+0.006** (0.7374 → 0.7432) and hallucination rate drops by **−0.006** (0.2626 → 0.2568). The grounding benefit is real but negligible — far too small to justify the cost.
+
+**The overhead is substantial.** Tokens consumed increase by **+73.7 %** (1 434 → 2 491 per question) and per-question latency grows by **+26 %** (5.07 s → 6.40 s). For a production deployment of a small local model these costs are prohibitive relative to the ~0.6 pp reduction in hallucination rate achieved.
+
+**Takeaway.** The validator adds value when paired with a capable model that can reliably comply with re-prompting instructions. For `llama3.1:8b`, the retry loop costs significantly more than it gains: answer quality degrades, token spend nearly doubles, and the only measurable benefit — a marginal reduction in hallucination — does not offset the losses. A lighter intervention (e.g., a lower-threshold validator or a single-shot grounding prefix) would be more appropriate for this model size.
 
 ---
 
