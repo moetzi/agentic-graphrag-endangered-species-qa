@@ -260,15 +260,15 @@ version:
 
 ---
 
-## 6. Screenshots (deliverable c, d)
+## 6. Screenshots 
 
-### (a) Database connection — `01_neo4j_connection.png`
+### (a) Database connection 
 
 ![Neo4j connection check — all-PASS output](docs/screenshots/01_neo4j_connection.png)
 
 ---
 
-### (b) Query / graph builder result
+### (b) Query result
 
 ![Neo4j graph — Species and Habitat subgraph](docs/screenshots/02_neo4j_graph.png)
 
