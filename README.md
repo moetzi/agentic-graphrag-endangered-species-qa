@@ -311,8 +311,6 @@ The ablation reveals a classic **over-correction failure mode** that emerges whe
 
 ![Agent demo — tool calls and final answer](docs/screenshots/04_agent_demo.png)
 
-![Agent demo — validator output](docs/screenshots/04_agent_demo2.png)
-
 ---
 
 ## 7. AI usage disclosure
